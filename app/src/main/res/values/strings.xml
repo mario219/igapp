@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RestConsumer</string>
+    <string name="login_caption_email">Email</string>
+    <string name="login_caption_password">Password</string>
+    <string name="login_caption_btn_login">Login</string>
+    <string name="login_empty_field">Blank field!</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
