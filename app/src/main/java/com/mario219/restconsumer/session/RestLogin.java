@@ -1,14 +1,21 @@
 package com.mario219.restconsumer.session;
 
-import android.util.Log;
+import android.content.Context;
 
+import com.mario219.restconsumer.models.SessionErrorResponse;
 import com.mario219.restconsumer.models.SessionModel;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by marioalejndro on 28/06/17.
@@ -18,14 +25,14 @@ public class RestLogin {
 
     private static final String url = "http://directotesting.igapps.co/";
     private static final String TAG = RestLogin.class.getSimpleName();
-    private SessionLoginCallback callback;
+    private RestLoginCallback callback;
 
-    public RestLogin(SessionLoginCallback callback) {
+    public RestLogin(RestLoginCallback callback) {
         this.callback = callback;
     }
 
     public void restLogin(String email, String password){
-        Retrofit retrofit = new Retrofit.Builder()
+        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -41,7 +48,15 @@ public class RestLogin {
                 try {
                     callback.onFinishedRequest(response.body().getAuthToken().toString());
                 }catch (Exception e){
-                    Log.i(TAG, response.errorBody().toString());
+                    Converter<ResponseBody, SessionErrorResponse> converter =
+                            retrofit.responseBodyConverter(SessionErrorResponse.class, new Annotation[0]);
+                    try {
+                        SessionErrorResponse error;
+                        error = converter.convert(response.errorBody());
+                        callback.onFinishedRequestFailure(error.getError().toString());
+                    } catch (IOException exc) {
+                        callback.onFinishedRequestFailure(exc.toString());
+                    }
                 }
 
             }

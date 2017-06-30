@@ -6,6 +6,8 @@ package com.mario219.restconsumer.presentation.view.contract;
 
 public interface LoginView {
 
-    void login(String word);
+    void login(String token);
+    void loginFailure(String word);
+    void loadCurrentSession();
 
 }

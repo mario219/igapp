@@ -6,8 +6,9 @@ import com.mario219.restconsumer.models.SessionModel;
  * Created by marioalejndro on 28/06/17.
  */
 
-public interface SessionLoginCallback {
+public interface RestLoginCallback {
 
-    void onFinishedRequest(String response);
+    void onFinishedRequest(String token);
+    void onFinishedRequestFailure(String errorMessage);
 
 }

@@ -16,8 +16,4 @@ public interface Api {
     @GET("application/login/")
     Call<SessionModel> getUser(@Query ("email") String email, @Query("password") String pass);
 
-    @GET("sch/prospects.json/")
-    Call<List<Prospects>> getProspects(@Header("authToken") String token);
-
-
 }
