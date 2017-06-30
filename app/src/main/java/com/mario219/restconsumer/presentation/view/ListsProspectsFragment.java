@@ -16,6 +16,7 @@ import com.mario219.restconsumer.Connectivity;
 import com.mario219.restconsumer.PreferencesManager;
 import com.mario219.restconsumer.data.DataProspects;
 import com.mario219.restconsumer.models.ProspectModel;
+import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.presenter.ListProspectsPresenter;
 import com.mario219.restconsumer.presentation.view.adapter.ProspectAdapter;
 import com.mario219.restconsumer.presentation.view.contract.ListProspectsView;
@@ -40,8 +41,9 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
     /**
      * State
      */
-    ListProspectsPresenter listProspectsPresenter;
+    private ListProspectsPresenter listProspectsPresenter;
     private Connectivity connectivity;
+    private PreferencesManager preferencesManager;
 
     public ListsProspectsFragment() {
         // Required empty public constructor
@@ -53,8 +55,9 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
         View view = inflater.inflate(R.layout.fragment_prospects, container, false);
         unbinder = ButterKnife.bind(this, view);
         connectivity = new Connectivity(getContext());
+        preferencesManager = new PreferencesManager(getContext());
         DataProspects dataInstance = DataProspects.getInstance(getContext());
-        listProspectsPresenter = new ListProspectsPresenter(this, connectivity, dataInstance);
+        listProspectsPresenter = new ListProspectsPresenter(this, connectivity, dataInstance, preferencesManager);
         listProspectsPresenter.loadProspectsList(new PreferencesManager(getContext()).getCurrentSession().toString());
         return view;
     }
@@ -72,10 +75,11 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
     @Override
     public void onFailureConnection() {
         Toast.makeText(getContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    public void loadRecycler(List<ProspectModel> prospectList) {
+    public void loadRecycler(List<ProspectSqlModel> prospectList) {
         progressBar.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());

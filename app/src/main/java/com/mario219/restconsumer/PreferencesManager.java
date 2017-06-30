@@ -23,6 +23,9 @@ public class PreferencesManager {
         return context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
     }
 
+    /**
+     *  Session Preferences
+     */
     public String getCurrentSession(){
         SharedPreferences prefs = getPrefs();
         String token = prefs.getString("token", "");
@@ -41,5 +44,24 @@ public class PreferencesManager {
     }
 
 
+    /**
+     *  Database Preferences
+     */
+    public Boolean databaseExits(){
+        SharedPreferences prefs = getPrefs();
+        Boolean flag = prefs.getBoolean("flag", false);
+        if (flag == true) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void notifyDatabaseExits(Boolean flag){
+        SharedPreferences.Editor editor = getPrefs().edit();
+        editor.putBoolean("flag", flag);
+        editor.commit();
+        Log.i(TAG, "Saved database preference");
+    }
 
 }

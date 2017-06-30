@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
 import com.mario219.restconsumer.models.ProspectModel;
+import com.mario219.restconsumer.models.ProspectSqlModel;
+import com.mario219.restconsumer.presentation.presenter.ListProspectsPresenter;
 
 import java.util.List;
 
@@ -24,10 +26,12 @@ import butterknife.ButterKnife;
 
 public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.ProspectHolder> {
 
-    private List<ProspectModel> prospectList;
+    private List<ProspectSqlModel> prospectList;
+    private ListProspectsPresenter presenter;
 
-    public ProspectAdapter(List<ProspectModel> prospectList) {
+    public ProspectAdapter(List<ProspectSqlModel> prospectList) {
         this.prospectList = prospectList;
+        this.presenter = presenter;
     }
 
     @Override
@@ -40,16 +44,15 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
 
     @Override
     public void onBindViewHolder(ProspectHolder holder, int position) {
-        ProspectModel prospect = prospectList.get(position);
+        final ProspectSqlModel prospect = prospectList.get(position);
         holder.etName.setText(prospect.getName());
         holder.etSurname.setText(prospect.getSurname());
-        holder.etId.setText(prospect.getSchProspectIdentification());
-        holder.etTelephone.setText(prospect.getTelephone());
+        holder.etId.setText(prospect.getId().toString());
+        holder.etTelephone.setText(prospect.getTelephone().toString());
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context c = v.getContext();
-                Toast.makeText(c, "hello", Toast.LENGTH_SHORT).show();
+                //presenter.editProspect(prospect);
             }
         });
     }
@@ -65,9 +68,12 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
         @BindView(R.id.prospect_item_id) TextView etId;
         @BindView(R.id.prospect_item_telephone) TextView etTelephone;
         @BindView(R.id.prospect_btn_edit) Button btnEdit;
+
         public ProspectHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
+
+
 }

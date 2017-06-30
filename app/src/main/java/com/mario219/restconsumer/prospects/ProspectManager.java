@@ -1,10 +1,13 @@
 package com.mario219.restconsumer.prospects;
 
+import android.database.Cursor;
 import android.util.Log;
 
 import com.mario219.restconsumer.data.DataProspects;
 import com.mario219.restconsumer.models.ProspectModel;
+import com.mario219.restconsumer.models.ProspectSqlModel;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,14 +15,16 @@ import java.util.List;
  * Created by marioalejndro on 29/06/17.
  */
 
-public class SaveProspects {
+public class ProspectManager {
 
-    private static final String TAG = SaveProspects.class.getSimpleName();
+    private static final String TAG = ProspectManager.class.getSimpleName();
     private DataProspects dataProspects;
+    private ProspectManagerCallback callback;
 
-    public SaveProspects(DataProspects dataProspects) {
+    public ProspectManager(ProspectManagerCallback callback, DataProspects dataProspects) {
 
         this.dataProspects = dataProspects;
+        this.callback = callback;
 
     }
 
@@ -62,7 +67,26 @@ public class SaveProspects {
             dataProspects.saveProspect(name, surname, id, telephone);
         }
         dataProspects.close();
-        //AlreadyDatabase.DbAlready(context, true);
-        //loadView();
+        loadCursorData();
+    }
+
+    public void loadCursorData() {
+        Cursor cursor = dataProspects.getAllProspects();
+        if(cursor.getCount() == 0){
+            Log.i(TAG, "Cursor is empty");
+            dataProspects.close();
+            return;
+        }
+        List<ProspectSqlModel> prospectList = new ArrayList<>();
+        while(cursor.moveToNext()){
+            ProspectSqlModel object = new ProspectSqlModel();
+            object.setName(cursor.getString(1));
+            object.setSurname(cursor.getString(2));
+            object.setId(cursor.getLong(3));
+            object.setTelephone(cursor.getLong(4));
+            prospectList.add(object);
+        }
+        dataProspects.close();
+        callback.onDatabaseCreated(prospectList);
     }
 }

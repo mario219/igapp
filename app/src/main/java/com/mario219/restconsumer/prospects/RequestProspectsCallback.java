@@ -8,7 +8,7 @@ import java.util.List;
  * Created by marioalejndro on 29/06/17.
  */
 
-public interface RestProspectsCallback {
+public interface RequestProspectsCallback {
 
     void onRequestCompleted(List<ProspectModel> prospectList);
 
