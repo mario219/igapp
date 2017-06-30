@@ -41,7 +41,7 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
     }
 
     @Override
-    public void onBindViewHolder(ProspectHolder holder, int position) {
+    public void onBindViewHolder(ProspectHolder holder, final int position) {
         final ProspectSqlModel prospect = prospectList.get(position);
         holder.etName.setText(prospect.getName());
         holder.etSurname.setText(prospect.getSurname());
@@ -52,6 +52,7 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent editProspectActivity = new Intent(context, EditProspectActivity.class);
+                editProspectActivity.putExtra("position", position);
                 editProspectActivity.putExtra("prospect_object", prospect);
                 context.startActivity(editProspectActivity);
             }

@@ -2,6 +2,7 @@ package com.mario219.restconsumer.presentation.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,8 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
     /**
      * UI
      */
+    @BindView(R.id.prospects_swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.prospects_recyclerview)
     RecyclerView recyclerView;
     @BindView(R.id.prospects_progressBar)
@@ -59,6 +62,12 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
         DataProspects dataInstance = DataProspects.getInstance(getContext());
         listProspectsPresenter = new ListProspectsPresenter(this, connectivity, dataInstance, preferencesManager);
         listProspectsPresenter.loadProspectsList(new PreferencesManager(getContext()).getCurrentSession().toString());
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listProspectsPresenter.loadProspectsList(new PreferencesManager(getContext()).getCurrentSession().toString());
+            }
+        });
         return view;
     }
 
@@ -67,6 +76,8 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 
     /**
      * Contract methods
@@ -80,13 +91,13 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
 
     @Override
     public void loadRecycler(List<ProspectSqlModel> prospectList) {
+        mSwipeRefreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         ProspectAdapter prospectAdapter = new ProspectAdapter(prospectList);
-        prospectAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(prospectAdapter);
     }
 }

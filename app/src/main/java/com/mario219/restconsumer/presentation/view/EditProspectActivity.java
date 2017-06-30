@@ -1,5 +1,6 @@
 package com.mario219.restconsumer.presentation.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
      */
     EditProspectPresenter editProspectPresenter;
     private ProspectSqlModel prospect;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
         ButterKnife.bind(this);
         DataProspects dataInstance = DataProspects.getInstance(this);
         editProspectPresenter = new EditProspectPresenter(this, dataInstance);
+        position = getIntent().getIntExtra("position", 0);
         prospect = getIntent().getParcelableExtra("prospect_object");
         etName.setHint(prospect.getName());
         etSurname.setHint(prospect.getSurname());
