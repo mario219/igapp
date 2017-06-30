@@ -86,6 +86,7 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         ProspectAdapter prospectAdapter = new ProspectAdapter(prospectList);
+        prospectAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(prospectAdapter);
     }
 }

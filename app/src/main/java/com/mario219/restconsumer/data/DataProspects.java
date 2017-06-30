@@ -15,6 +15,7 @@ public class DataProspects extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "prospects.db";
     private static final String PROSPECT_TABLE = "PROSPECT";
+    private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String SURNAME = "SURNAME";
     private static final String IDENTIFICATION = "IDENTIFICATION";
@@ -79,6 +80,21 @@ public class DataProspects extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(PROSPECT_TABLE, null, null);
         db.close();
+    }
+
+    public void updateProspect(int id, String name, String surname, Long identification, Long tel){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(NAME, name);
+        cv.put(SURNAME, surname);
+        cv.put(IDENTIFICATION, identification);
+        cv.put(TELEPHONE, tel);
+        long result = db.update(PROSPECT_TABLE, cv, ID+"="+id, null);
+        if(result == -1){
+            Log.i(TAG, "something went wrong saving the feed in table.");
+        }else{
+            Log.i(TAG, "saved");
+        }
     }
 
 }

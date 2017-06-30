@@ -1,19 +1,18 @@
 package com.mario219.restconsumer.presentation.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.models.ProspectModel;
 import com.mario219.restconsumer.models.ProspectSqlModel;
-import com.mario219.restconsumer.presentation.presenter.ListProspectsPresenter;
+import com.mario219.restconsumer.presentation.view.EditProspectActivity;
 
 import java.util.List;
 
@@ -27,11 +26,10 @@ import butterknife.ButterKnife;
 public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.ProspectHolder> {
 
     private List<ProspectSqlModel> prospectList;
-    private ListProspectsPresenter presenter;
 
     public ProspectAdapter(List<ProspectSqlModel> prospectList) {
         this.prospectList = prospectList;
-        this.presenter = presenter;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,12 +45,15 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
         final ProspectSqlModel prospect = prospectList.get(position);
         holder.etName.setText(prospect.getName());
         holder.etSurname.setText(prospect.getSurname());
-        holder.etId.setText(prospect.getId().toString());
+        holder.etId.setText(prospect.getIdentification().toString());
         holder.etTelephone.setText(prospect.getTelephone().toString());
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //presenter.editProspect(prospect);
+                Context context = v.getContext();
+                Intent editProspectActivity = new Intent(context, EditProspectActivity.class);
+                editProspectActivity.putExtra("prospect_object", prospect);
+                context.startActivity(editProspectActivity);
             }
         });
     }

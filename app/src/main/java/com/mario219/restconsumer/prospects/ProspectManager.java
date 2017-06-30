@@ -80,13 +80,19 @@ public class ProspectManager {
         List<ProspectSqlModel> prospectList = new ArrayList<>();
         while(cursor.moveToNext()){
             ProspectSqlModel object = new ProspectSqlModel();
+            object.setId(cursor.getInt(0));
             object.setName(cursor.getString(1));
             object.setSurname(cursor.getString(2));
-            object.setId(cursor.getLong(3));
+            object.setIdentification(cursor.getLong(3));
             object.setTelephone(cursor.getLong(4));
             prospectList.add(object);
         }
         dataProspects.close();
         callback.onDatabaseCreated(prospectList);
+    }
+
+    public void updateProspect(int id, String name, String surname, Long identification, Long tel){
+        dataProspects.updateProspect(id, name, surname, identification, tel);
+        callback.onProspectUpdated("User updated!");
     }
 }

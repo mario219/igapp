@@ -11,5 +11,6 @@ import java.util.List;
 public interface ProspectManagerCallback {
 
     void onDatabaseCreated(List<ProspectSqlModel> prospectSqlList);
+    void onProspectUpdated(String message);
 
 }

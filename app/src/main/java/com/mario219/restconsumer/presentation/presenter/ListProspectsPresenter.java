@@ -56,19 +56,23 @@ public class ListProspectsPresenter implements RequestProspectsCallback, Prospec
         }
     }
 
-    public void editProspect(ProspectModel prospect) {
-
-    }
-
     @Override
     public void onRequestCompleted(List<ProspectModel> prospectList) {
         manageProspects.save(prospectList);
     }
 
 
+    /**
+     * Callback methods
+     */
     @Override
     public void onDatabaseCreated(List<ProspectSqlModel> prospectSqlList) {
         preferences.notifyDatabaseExits(true);
         view.loadRecycler(prospectSqlList);
+    }
+
+    @Override
+    public void onProspectUpdated(String message) {
+
     }
 }

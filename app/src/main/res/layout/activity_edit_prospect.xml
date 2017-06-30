@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:cardCornerRadius="5dp"
-    app:cardUseCompatPadding="true"
-    >
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.mario219.restconsumer.presentation.view.EditProspectActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="0dp"
+        android:layout_marginTop="20dp"
         android:background="?android:selectableItemBackground"
         android:orientation="vertical">
 
@@ -36,19 +36,13 @@
                     android:padding="5dp"
                     android:text="Name: "
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/prospect_item_name"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="5dp"
-                    android:text="name"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_weight="1.00" />
+                    android:hint="name"/>
 
             </LinearLayout>
 
@@ -68,16 +62,11 @@
                     android:textSize="18sp"
                     />
 
-                <TextView
-                    android:id="@+id/prospect_item_surname"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/edit_surname"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="5dp"
-                    android:text="surname"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_weight="1.00" />
+                    android:hint="surname"/>
 
             </LinearLayout>
 
@@ -97,16 +86,12 @@
                     android:textSize="18sp"
                     />
 
-                <TextView
-                    android:id="@+id/prospect_item_id"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/edit_id"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="5dp"
-                    android:text="name"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_weight="1.00" />
+                    android:hint="identification"
+                    android:inputType="number" />
 
             </LinearLayout>
 
@@ -126,23 +111,20 @@
                     android:textSize="18sp"
                     />
 
-                <TextView
-                    android:id="@+id/prospect_item_telephone"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/edit_tel"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="5dp"
-                    android:text="tel"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:layout_weight="1.00" />
+                    android:hint="telephone"
+                    android:inputType="number" />
 
             </LinearLayout>
 
             <Button
-                android:text="Edit"
-                android:layout_gravity="right"
-                android:layout_width="74dp"
+                android:text="Save"
+                android:layout_gravity="center"
+                android:layout_width="80dp"
+                android:layout_marginTop="@dimen/top_margin"
                 android:layout_height="wrap_content"
                 android:id="@+id/prospect_btn_edit" />
 
@@ -150,4 +132,4 @@
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</android.support.design.widget.CoordinatorLayout>
