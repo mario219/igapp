@@ -12,12 +12,14 @@ import android.view.MenuItem;
 
 import com.mario219.restconsumer.PreferencesManager;
 import com.mario219.restconsumer.R;
+import com.mario219.restconsumer.presentation.presenter.MainPresenter;
+import com.mario219.restconsumer.presentation.view.contract.MainView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainView {
 
     /**
      * UI
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * State
      */
-    private PreferencesManager preferencesManager;
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setLayout();
-        preferencesManager = new PreferencesManager(this);
+        mainPresenter = new MainPresenter(this, new PreferencesManager(this));
     }
 
     @Override
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, logFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_close_session){
-            preferencesManager.SetCurrentSession("");
+            mainPresenter.closeSession();
             finish();
         }
 

@@ -39,6 +39,10 @@ public class LoginPresenter implements RestLoginCallback {
         }
     }
 
+
+    /**
+     * Callback Methods
+     */
     @Override
     public void onFinishedRequest(String token) {
         preferenceManager.SetCurrentSession(token);
@@ -49,4 +53,5 @@ public class LoginPresenter implements RestLoginCallback {
     public void onFinishedRequestFailure(String errorMessage) {
         view.loginFailure(errorMessage);
     }
+
 }
