@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.mario219.restconsumer.PreferencesManager;
+import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.R;
 import com.mario219.restconsumer.presentation.presenter.MainPresenter;
 import com.mario219.restconsumer.presentation.view.contract.MainView;

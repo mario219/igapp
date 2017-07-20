@@ -1,4 +1,4 @@
-package com.mario219.restconsumer;
+package com.mario219.restconsumer.utils;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.util.Log;
  * Created by marioalejndro on 29/06/17.
  */
 
-public class Connectivity extends BroadcastReceiver{
+public class Connectivity extends BroadcastReceiver implements ConnectivityInterface {
 
 
     private Context context;
@@ -32,14 +32,15 @@ public class Connectivity extends BroadcastReceiver{
             }
     }
 
-    public Boolean isOnline(){
-            ConnectivityManager cm = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo nInfo = cm.getActiveNetworkInfo();
-            if(nInfo != null && nInfo.isConnectedOrConnecting()){
-                return true;
-            }else{
-                return false;
-            }
-    }
 
+    @Override
+    public Boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+        if(nInfo != null && nInfo.isConnectedOrConnecting()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
