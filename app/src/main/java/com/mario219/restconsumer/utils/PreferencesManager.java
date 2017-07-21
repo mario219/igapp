@@ -1,4 +1,4 @@
-package com.mario219.restconsumer;
+package com.mario219.restconsumer.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,7 +10,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by marioalejndro on 28/06/17.
  */
 
-public class PreferencesManager {
+public class PreferencesManager implements Preferences {
     private static final String TAG = PreferencesManager.class.getSimpleName();
     private static String PREF_NAME = "CurrentSessionPref";
     private Context context;
@@ -26,7 +26,8 @@ public class PreferencesManager {
     /**
      *  Session Preferences
      */
-    public String getCurrentSession(){
+    @Override
+    public String getCurrentSession() {
         SharedPreferences prefs = getPrefs();
         String token = prefs.getString("token", "");
         if (!token.equals("")) {
@@ -36,18 +37,19 @@ public class PreferencesManager {
         }
     }
 
-    public void SetCurrentSession (String token) {
+    @Override
+    public void SetCurrentSession(String token) {
         SharedPreferences.Editor editor = getPrefs().edit();
         editor.putString("token", token);
         editor.commit();
         Log.i(TAG, "session updated");
     }
 
-
     /**
      *  Database Preferences
      */
-    public Boolean databaseExits(){
+    @Override
+    public Boolean databaseExits() {
         SharedPreferences prefs = getPrefs();
         Boolean flag = prefs.getBoolean("flag", false);
         if (flag == true) {
@@ -57,7 +59,8 @@ public class PreferencesManager {
         }
     }
 
-    public void notifyDatabaseExits(Boolean flag){
+    @Override
+    public void notifyDatabaseExits(Boolean flag) {
         SharedPreferences.Editor editor = getPrefs().edit();
         editor.putBoolean("flag", flag);
         editor.commit();

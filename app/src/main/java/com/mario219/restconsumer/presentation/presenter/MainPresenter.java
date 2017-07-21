@@ -1,6 +1,6 @@
 package com.mario219.restconsumer.presentation.presenter;
 
-import com.mario219.restconsumer.PreferencesManager;
+import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.presentation.view.contract.MainView;
 
 /**

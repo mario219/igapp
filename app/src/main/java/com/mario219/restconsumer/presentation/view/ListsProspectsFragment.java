@@ -13,10 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.Connectivity;
-import com.mario219.restconsumer.PreferencesManager;
+import com.mario219.restconsumer.utils.Connectivity;
+import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.data.DataProspects;
-import com.mario219.restconsumer.models.ProspectModel;
 import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.presenter.ListProspectsPresenter;
 import com.mario219.restconsumer.presentation.view.adapter.ProspectAdapter;

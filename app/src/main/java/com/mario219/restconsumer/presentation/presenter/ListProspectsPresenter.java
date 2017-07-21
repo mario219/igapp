@@ -2,8 +2,8 @@ package com.mario219.restconsumer.presentation.presenter;
 
 import android.util.Log;
 
-import com.mario219.restconsumer.Connectivity;
-import com.mario219.restconsumer.PreferencesManager;
+import com.mario219.restconsumer.utils.Connectivity;
+import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.data.DataProspects;
 import com.mario219.restconsumer.models.ProspectModel;
 import com.mario219.restconsumer.models.ProspectSqlModel;

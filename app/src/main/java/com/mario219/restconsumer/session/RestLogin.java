@@ -21,17 +21,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by marioalejndro on 28/06/17.
  */
 
-public class RestLogin {
+public class RestLogin implements Rest {
 
     private static final String url = "http://directotesting.igapps.co/";
     private static final String TAG = RestLogin.class.getSimpleName();
     private RestLoginCallback callback;
 
-    public RestLogin(RestLoginCallback callback) {
+    public RestLogin() { }
+
+    @Override
+    public void setCallback(RestLoginCallback callback) {
         this.callback = callback;
     }
 
-    public void restLogin(String email, String password){
+    @Override
+    public void restLogin(String email, String password) {
+
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -67,8 +72,6 @@ public class RestLogin {
             }
 
         });
+
     }
-
-
-
 }
