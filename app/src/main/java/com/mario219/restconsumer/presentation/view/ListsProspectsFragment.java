@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.utils.Connectivity;
+import com.mario219.restconsumer.utils.ConnectivityManager;
 import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.data.DataProspects;
 import com.mario219.restconsumer.models.ProspectSqlModel;
@@ -44,7 +44,7 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
      * State
      */
     private ListProspectsPresenter listProspectsPresenter;
-    private Connectivity connectivity;
+    private ConnectivityManager connectivityManager;
     private PreferencesManager preferencesManager;
 
     public ListsProspectsFragment() {
@@ -56,10 +56,10 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prospects, container, false);
         unbinder = ButterKnife.bind(this, view);
-        connectivity = new Connectivity(getContext());
+        connectivityManager = new ConnectivityManager(getContext());
         preferencesManager = new PreferencesManager(getContext());
         DataProspects dataInstance = DataProspects.getInstance(getContext());
-        listProspectsPresenter = new ListProspectsPresenter(this, connectivity, dataInstance, preferencesManager);
+        listProspectsPresenter = new ListProspectsPresenter(this, connectivityManager, dataInstance, preferencesManager);
         listProspectsPresenter.loadProspectsList(new PreferencesManager(getContext()).getCurrentSession().toString());
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

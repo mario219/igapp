@@ -2,7 +2,7 @@ package com.mario219.restconsumer.presentation.presenter;
 
 import android.util.Log;
 
-import com.mario219.restconsumer.utils.Connectivity;
+import com.mario219.restconsumer.utils.ConnectivityManager;
 import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.data.DataProspects;
 import com.mario219.restconsumer.models.ProspectModel;
@@ -24,19 +24,19 @@ public class ListProspectsPresenter implements RequestProspectsCallback, Prospec
     private static final String TAG = ListProspectsPresenter.class.getSimpleName();
 
     private ListProspectsView view;
-    private Connectivity connectivity;
+    private ConnectivityManager connectivityManager;
     private PreferencesManager preferences;
     private RequestProspects restProspects;
     private ProspectManager manageProspects;
 
     public ListProspectsPresenter(
             ListProspectsView view,
-            Connectivity connectivity,
+            ConnectivityManager connectivityManager,
             DataProspects dataInstance,
             PreferencesManager preferences) {
 
         this.view = view;
-        this.connectivity = connectivity;
+        this.connectivityManager = connectivityManager;
         this.preferences = preferences;
         restProspects = new RequestProspects(this);
         manageProspects = new ProspectManager(this, dataInstance);
@@ -48,7 +48,7 @@ public class ListProspectsPresenter implements RequestProspectsCallback, Prospec
             Log.i(TAG, "db exists!");
             manageProspects.loadCursorData();
         }else{
-            if(connectivity.isOnline()){
+            if(connectivityManager.isOnline()){
                 restProspects.requestProspects(token);
             }else{
                 view.onFailureConnection();

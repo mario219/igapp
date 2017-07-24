@@ -1,10 +1,9 @@
 package com.mario219.restconsumer.presentation.presenter;
 
 import com.mario219.restconsumer.session.Rest;
-import com.mario219.restconsumer.utils.ConnectivityInterface;
+import com.mario219.restconsumer.utils.Connectivity;
 import com.mario219.restconsumer.utils.Preferences;
 import com.mario219.restconsumer.presentation.view.contract.LoginView;
-import com.mario219.restconsumer.session.RestLogin;
 import com.mario219.restconsumer.session.RestLoginCallback;
 
 /**
@@ -15,11 +14,11 @@ public class LoginPresenter implements RestLoginCallback {
 
     private LoginView view;
     private Preferences preferenceManager;
-    private ConnectivityInterface connectivity;
+    private Connectivity connectivity;
     private Rest restLogin;
     private final String TAG = LoginPresenter.class.getSimpleName();
 
-    public LoginPresenter(LoginView view, Preferences preferenceManager, ConnectivityInterface connectivity, Rest restLogin) {
+    public LoginPresenter(LoginView view, Preferences preferenceManager, Connectivity connectivity, Rest restLogin) {
         this.view = view;
         this.preferenceManager = preferenceManager;
         this.connectivity = connectivity;

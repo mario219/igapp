@@ -51,16 +51,16 @@ public class RestLogin implements Rest {
             public void onResponse(Call<SessionModel> call, Response<SessionModel> response) {
 
                 try {
-                    callback.onFinishedRequest(response.body().getAuthToken().toString());
+                    restLoginSuccessful(response.body().getAuthToken().toString());
                 }catch (Exception e){
                     Converter<ResponseBody, SessionErrorResponse> converter =
                             retrofit.responseBodyConverter(SessionErrorResponse.class, new Annotation[0]);
                     try {
                         SessionErrorResponse error;
                         error = converter.convert(response.errorBody());
-                        callback.onFinishedRequestFailure(error.getError().toString());
+                        restLoginFailure(error.getError().toString());
                     } catch (IOException exc) {
-                        callback.onFinishedRequestFailure(exc.toString());
+                        restLoginFailure(exc.toString());
                     }
                 }
 
@@ -73,5 +73,15 @@ public class RestLogin implements Rest {
 
         });
 
+    }
+
+    @Override
+    public void restLoginSuccessful(String token) {
+        callback.onFinishedRequest(token);
+    }
+
+    @Override
+    public void restLoginFailure(String message) {
+        callback.onFinishedRequestFailure(message);
     }
 }

@@ -3,14 +3,12 @@ package com.mario219.restconsumer.presentation.presenter;
 import com.mario219.restconsumer.presentation.view.contract.LoginView;
 import com.mario219.restconsumer.session.Rest;
 import com.mario219.restconsumer.session.RestLoginCallback;
-import com.mario219.restconsumer.utils.ConnectivityInterface;
+import com.mario219.restconsumer.utils.Connectivity;
 import com.mario219.restconsumer.utils.Preferences;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by marioalejndro on 20/07/17.
@@ -18,37 +16,53 @@ import static org.junit.Assert.*;
 public class LoginPresenterTest {
 
     @Test
-    public void startLoginRequestWhenInternet() throws Exception {
+    public void startLoginRequestSuccessful() {
         //given
         LoginView view = new MockLoginView();
         Preferences prefs = new MockPrefManager();
-        ConnectivityInterface connectivity = new MockConnectivity();
-        Rest rest = new MockRest();
+        Connectivity connectivity = new MockConnectivity();
+        Rest rest = new MockRest(true);
 
         //when
         LoginPresenter presenter = new LoginPresenter(view, prefs, connectivity, rest);
-        //presenter.startLoginRequest();
+        presenter.startLoginRequest("","");
 
         //then
-        Assert.assertEquals(true, ((MockLoginView) view).passed);
+        Assert.assertEquals(true, ((MockLoginView) view).logged);
+    }
+
+    @Test
+    public void startLoginRequestFailure() {
+        //given
+        LoginView view = new MockLoginView();
+        Preferences prefs = new MockPrefManager();
+        Connectivity connectivity = new MockConnectivity();
+        Rest rest = new MockRest(false);
+
+        //when
+        LoginPresenter presenter = new LoginPresenter(view, prefs, connectivity, rest);
+        presenter.startLoginRequest("","");
+
+        //then
+        Assert.assertEquals(true, ((MockLoginView) view).failure);
     }
 
     private class MockLoginView implements LoginView {
-        boolean passed;
+        boolean logged;
+        boolean failure;
+
         @Override
         public void login(String token) {
-            passed = true;
+            logged = true;
         }
 
         @Override
         public void loginFailure(String word) {
-
+            failure = true;
         }
 
         @Override
-        public void loadCurrentSession() {
-
-        }
+        public void loadCurrentSession() {}
     }
 
     private class MockPrefManager implements Preferences {
@@ -73,22 +87,43 @@ public class LoginPresenterTest {
         }
     }
 
-    private class MockConnectivity implements ConnectivityInterface {
+    private class MockConnectivity implements Connectivity {
         @Override
         public Boolean isOnline() {
-            return null;
+            return true;
         }
     }
 
     private class MockRest implements Rest {
+        private RestLoginCallback callback;
+        private boolean success;
+
+        public MockRest(boolean success) {
+            this.success = success;
+        }
+
         @Override
         public void setCallback(RestLoginCallback callback) {
-
+            this.callback = callback;
         }
 
         @Override
         public void restLogin(String email, String password) {
+            if(success) {
+                restLoginSuccessful("token");
+            }else{
+                restLoginFailure("failure");
+            }
+        }
 
+        @Override
+        public void restLoginSuccessful(String token) {
+            callback.onFinishedRequest(token);
+        }
+
+        @Override
+        public void restLoginFailure(String message) {
+            callback.onFinishedRequestFailure(message);
         }
     }
 }

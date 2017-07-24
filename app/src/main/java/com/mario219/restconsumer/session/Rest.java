@@ -8,5 +8,7 @@ public interface Rest {
 
     void setCallback(RestLoginCallback callback);
     void restLogin(String email, String password);
+    void restLoginSuccessful(String token);
+    void restLoginFailure(String message);
 
 }

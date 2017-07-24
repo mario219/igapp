@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.session.RestLogin;
-import com.mario219.restconsumer.utils.Connectivity;
+import com.mario219.restconsumer.utils.ConnectivityManager;
 import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.R;
 import com.mario219.restconsumer.presentation.presenter.LoginPresenter;
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
      */
     private LoginPresenter loginPresenter;
     private PreferencesManager preferenceManager;
-    private Connectivity connectivity;
+    private ConnectivityManager connectivityManager;
     private RestLogin restLogin;
 
     @Override
@@ -46,9 +46,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         preferenceManager = new PreferencesManager(this);
-        connectivity = new Connectivity(this);
+        connectivityManager = new ConnectivityManager(this);
         restLogin = new RestLogin();
-        loginPresenter = new LoginPresenter(this, preferenceManager, connectivity, restLogin);
+        loginPresenter = new LoginPresenter(this, preferenceManager, connectivityManager, restLogin);
     }
 
     @OnClick(R.id.login_btn_login)
