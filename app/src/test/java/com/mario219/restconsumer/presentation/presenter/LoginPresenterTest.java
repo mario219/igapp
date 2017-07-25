@@ -110,20 +110,10 @@ public class LoginPresenterTest {
         @Override
         public void restLogin(String email, String password) {
             if(success) {
-                restLoginSuccessful("token");
+                callback.onFinishedRequest("token");
             }else{
-                restLoginFailure("failure");
+                callback.onFinishedRequestFailure("failure");
             }
-        }
-
-        @Override
-        public void restLoginSuccessful(String token) {
-            callback.onFinishedRequest(token);
-        }
-
-        @Override
-        public void restLoginFailure(String message) {
-            callback.onFinishedRequestFailure(message);
         }
     }
 }

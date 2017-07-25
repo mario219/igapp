@@ -5,4 +5,5 @@ package com.mario219.restconsumer.presentation.view.contract;
  */
 
 public interface MainView {
+
 }

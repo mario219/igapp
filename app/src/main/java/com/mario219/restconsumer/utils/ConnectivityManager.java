@@ -12,7 +12,6 @@ import android.util.Log;
 
 public class ConnectivityManager extends BroadcastReceiver implements Connectivity {
 
-
     private Context context;
 
     public ConnectivityManager(Context context) {
