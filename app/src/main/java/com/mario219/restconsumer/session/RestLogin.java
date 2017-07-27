@@ -27,15 +27,12 @@ public class RestLogin implements Rest {
     private static final String TAG = RestLogin.class.getSimpleName();
     private RestLoginCallback callback;
 
-    public RestLogin() { }
+    public RestLogin() {  }
 
     @Override
-    public void setCallback(RestLoginCallback callback) {
-        this.callback = callback;
-    }
+    public void restLogin(RestLoginCallback callback1, String email, String password) {
 
-    @Override
-    public void restLogin(String email, String password) {
+        this.callback = callback1;
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)

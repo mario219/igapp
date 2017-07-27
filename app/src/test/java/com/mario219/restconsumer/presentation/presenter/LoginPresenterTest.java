@@ -5,115 +5,84 @@ import com.mario219.restconsumer.session.Rest;
 import com.mario219.restconsumer.session.RestLoginCallback;
 import com.mario219.restconsumer.utils.Connectivity;
 import com.mario219.restconsumer.utils.Preferences;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+
 
 /**
  * Created by marioalejndro on 20/07/17.
  */
+
+@RunWith(MockitoJUnitRunner.class)
 public class LoginPresenterTest {
+
+    @Mock Rest rest;
+    @Mock Preferences prefs;
+    @Mock Connectivity connectivity;
+    @Mock LoginView view;
 
     @Test
     public void startLoginRequestSuccessful() {
         //given
-        LoginView view = new MockLoginView();
-        Preferences prefs = new MockPrefManager();
-        Connectivity connectivity = new MockConnectivity();
-        Rest rest = new MockRest(true);
+        Mockito.when(connectivity.isOnline()).thenReturn(true);
+        Mockito.doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                RestLoginCallback callback = (RestLoginCallback) invocation.getArgument(0);
+                callback.onFinishedRequest("token");
+                return null;
+            }
+        }).when(rest).restLogin((any(RestLoginCallback.class)),anyString(),anyString());
 
         //when
         LoginPresenter presenter = new LoginPresenter(view, prefs, connectivity, rest);
         presenter.startLoginRequest("","");
 
         //then
-        Assert.assertEquals(true, ((MockLoginView) view).logged);
+        Mockito.verify(view).login(anyString());
     }
 
     @Test
     public void startLoginRequestFailure() {
         //given
-        LoginView view = new MockLoginView();
-        Preferences prefs = new MockPrefManager();
-        Connectivity connectivity = new MockConnectivity();
-        Rest rest = new MockRest(false);
+        Mockito.when(connectivity.isOnline()).thenReturn(true);
+        Mockito.doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                RestLoginCallback callback = invocation.getArgument(0);
+                callback.onFinishedRequestFailure("fail");
+                return null;
+            }
+        }).when(rest).restLogin((any(RestLoginCallback.class)),anyString(),anyString());
 
         //when
         LoginPresenter presenter = new LoginPresenter(view, prefs, connectivity, rest);
         presenter.startLoginRequest("","");
 
         //then
-        Assert.assertEquals(true, ((MockLoginView) view).failure);
+        Mockito.verify(view).loginFailure(anyString());
     }
 
-    private class MockLoginView implements LoginView {
-        boolean logged;
-        boolean failure;
+    @Test
+    public void handleNoInternetConnection(){
+        //given
+        Mockito.when(connectivity.isOnline()).thenReturn(false);
 
-        @Override
-        public void login(String token) {
-            logged = true;
-        }
+        //when
+        LoginPresenter presenter = new LoginPresenter(view, prefs, connectivity, rest);
+        presenter.startLoginRequest("","");
 
-        @Override
-        public void loginFailure(String word) {
-            failure = true;
-        }
-
-        @Override
-        public void loadCurrentSession() {}
+        //then
+        Mockito.verify(view).loginFailure(anyString());
     }
 
-    private class MockPrefManager implements Preferences {
-        @Override
-        public String getCurrentSession() {
-            return null;
-        }
-
-        @Override
-        public void SetCurrentSession(String token) {
-
-        }
-
-        @Override
-        public Boolean databaseExits() {
-            return null;
-        }
-
-        @Override
-        public void notifyDatabaseExits(Boolean flag) {
-
-        }
-    }
-
-    private class MockConnectivity implements Connectivity {
-        @Override
-        public Boolean isOnline() {
-            return true;
-        }
-    }
-
-    private class MockRest implements Rest {
-        private RestLoginCallback callback;
-        private boolean success;
-
-        public MockRest(boolean success) {
-            this.success = success;
-        }
-
-        @Override
-        public void setCallback(RestLoginCallback callback) {
-            this.callback = callback;
-        }
-
-        @Override
-        public void restLogin(String email, String password) {
-            if(success) {
-                callback.onFinishedRequest("token");
-            }else{
-                callback.onFinishedRequestFailure("failure");
-            }
-        }
-    }
 }

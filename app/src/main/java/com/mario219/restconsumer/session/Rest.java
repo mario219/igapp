@@ -6,7 +6,6 @@ package com.mario219.restconsumer.session;
 
 public interface Rest {
 
-    void setCallback(RestLoginCallback callback);
-    void restLogin(String email, String password);
+    void restLogin(RestLoginCallback callback, String email, String password);
 
 }

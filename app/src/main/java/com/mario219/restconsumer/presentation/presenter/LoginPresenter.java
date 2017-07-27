@@ -23,7 +23,6 @@ public class LoginPresenter implements RestLoginCallback {
         this.preferenceManager = preferenceManager;
         this.connectivity = connectivity;
         this.restLogin = restLogin;
-        restLogin.setCallback(this);
         if(preferenceManager.getCurrentSession() != null) {
             view.loadCurrentSession();
         }
@@ -31,7 +30,7 @@ public class LoginPresenter implements RestLoginCallback {
 
     public void startLoginRequest(String email, String password){
         if(connectivity.isOnline()) {
-            restLogin.restLogin(email, password);
+            restLogin.restLogin(this, email, password);
         }else{
             onFinishedRequestFailure("You don´t have an internet connection");
         }
