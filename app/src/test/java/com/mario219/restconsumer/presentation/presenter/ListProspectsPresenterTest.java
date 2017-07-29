@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
  */
 public class ListProspectsPresenterTest {
 
-    private final String ANY_STRING = "any";
+    private final String ANY_STRING = "";
     private final List<ProspectSqlModel> prospectSqlList = Arrays.asList(new ProspectSqlModel(), new ProspectSqlModel());
     private final List<ProspectModel> prospectRestList = Arrays.asList(new ProspectModel(), new ProspectModel());
 
@@ -103,6 +103,7 @@ public class ListProspectsPresenterTest {
         presenter.loadProspectsList(ANY_STRING);
 
         verify(view).loadRecycler(prospectSqlList);
+
     }
 
     @Test

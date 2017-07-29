@@ -26,10 +26,10 @@ import static org.mockito.Mockito.*;
 
 public class LoginPresenterTest {
 
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
+    private final String ANY_STRING = "";
 
-    private final String ANY_STRING = "some_text";
+    @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Mock Rest rest;
     @Mock Preferences prefs;
     @Mock Connectivity connectivity;

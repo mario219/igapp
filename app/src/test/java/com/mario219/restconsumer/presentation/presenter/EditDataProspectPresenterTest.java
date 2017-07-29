@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -18,6 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by mario219 on 29/07/17.
@@ -42,7 +42,7 @@ public class EditDataProspectPresenterTest {
     @Test
     public void updateProspect() {
 
-        Mockito.doAnswer(new Answer<Void>() {
+        doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocation) throws Throwable {
                 DataProspectManagerCallback callback = invocation.getArgument(0);
@@ -54,7 +54,7 @@ public class EditDataProspectPresenterTest {
 
         presenter.updateProspect(ANY_INT, ANY_STRING, ANY_STRING, ANY_LONG, ANY_LONG);
 
-        Mockito.verify(view).onUserUpdated(anyString());
+        verify(view).onUserUpdated(anyString());
 
     }
 }
