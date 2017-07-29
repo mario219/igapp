@@ -1,16 +1,16 @@
 package com.mario219.restconsumer.presentation.view;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.data.DataProspects;
+import com.mario219.restconsumer.data.SQLDataProspectsHelper;
 import com.mario219.restconsumer.models.ProspectSqlModel;
-import com.mario219.restconsumer.presentation.presenter.EditProspectPresenter;
+import com.mario219.restconsumer.presentation.presenter.EditDataProspectPresenter;
 import com.mario219.restconsumer.presentation.view.contract.EditProspectView;
+import com.mario219.restconsumer.prospects.DataProspectManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,23 +33,30 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
     /**
      * State
      */
-    EditProspectPresenter editProspectPresenter;
+    EditDataProspectPresenter editProspectPresenter;
     private ProspectSqlModel prospect;
     private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_prospect);
         ButterKnife.bind(this);
-        DataProspects dataInstance = DataProspects.getInstance(this);
-        editProspectPresenter = new EditProspectPresenter(this, dataInstance);
+
+
+        SQLDataProspectsHelper dataInstance = SQLDataProspectsHelper.getInstance(this);
+        DataProspectManager dataProspectManager = new DataProspectManager(dataInstance);
+        editProspectPresenter = new EditDataProspectPresenter(this, dataProspectManager);
+
+        //load data prospects from listProspect
         position = getIntent().getIntExtra("position", 0);
         prospect = getIntent().getParcelableExtra("prospect_object");
         etName.setHint(prospect.getName());
         etSurname.setHint(prospect.getSurname());
         etId.setHint(prospect.getIdentification().toString());
         etTelephone.setHint(prospect.getTelephone().toString());
+
     }
 
     @Override

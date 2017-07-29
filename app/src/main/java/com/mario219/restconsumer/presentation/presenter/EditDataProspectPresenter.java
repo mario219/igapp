@@ -1,10 +1,11 @@
 package com.mario219.restconsumer.presentation.presenter;
 
-import com.mario219.restconsumer.data.DataProspects;
+import com.mario219.restconsumer.data.SQLDataProspectsHelper;
 import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.view.contract.EditProspectView;
-import com.mario219.restconsumer.prospects.ProspectManager;
-import com.mario219.restconsumer.prospects.ProspectManagerCallback;
+import com.mario219.restconsumer.prospects.DataProspect;
+import com.mario219.restconsumer.prospects.DataProspectManager;
+import com.mario219.restconsumer.prospects.DataProspectManagerCallback;
 
 import java.util.List;
 
@@ -12,20 +13,20 @@ import java.util.List;
  * Created by marioalejndro on 30/06/17.
  */
 
-public class EditProspectPresenter implements ProspectManagerCallback{
+public class EditDataProspectPresenter implements DataProspectManagerCallback {
 
     private EditProspectView view;
-    private ProspectManager manageProspects;
+    private DataProspect manageProspects;
 
-    public EditProspectPresenter(EditProspectView view, DataProspects dataInstance) {
+    public EditDataProspectPresenter(EditProspectView view, DataProspect manageProspects) {
 
         this.view = view;
-        manageProspects = new ProspectManager(this, dataInstance);
+        this.manageProspects = manageProspects;
 
     }
 
     public void updateProspect(int id, String name, String surname, Long identification, Long tel) {
-        manageProspects.updateProspect(id, name, surname, identification, tel);
+        manageProspects.updateProspect(this, id, name, surname, identification, tel);
     }
 
     /**
@@ -39,5 +40,10 @@ public class EditProspectPresenter implements ProspectManagerCallback{
     @Override
     public void onProspectUpdated(String message) {
         view.onUserUpdated(message);
+    }
+
+    @Override
+    public void onSaveCompleted() {
+
     }
 }

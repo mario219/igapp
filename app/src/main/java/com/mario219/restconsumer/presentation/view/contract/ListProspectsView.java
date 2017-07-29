@@ -13,4 +13,6 @@ public interface ListProspectsView {
 
     void onFailureConnection();
     void loadRecycler(List<ProspectSqlModel> prospectList);
+    void displayErrorMessage(String error);
+
 }

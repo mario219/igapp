@@ -3,7 +3,7 @@ package com.mario219.restconsumer.prospects;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.mario219.restconsumer.data.DataProspects;
+import com.mario219.restconsumer.data.SQLDataProspectsHelper;
 import com.mario219.restconsumer.models.ProspectModel;
 import com.mario219.restconsumer.models.ProspectSqlModel;
 
@@ -15,21 +15,23 @@ import java.util.List;
  * Created by marioalejndro on 29/06/17.
  */
 
-public class ProspectManager {
+public class DataProspectManager implements DataProspect{
 
-    private static final String TAG = ProspectManager.class.getSimpleName();
-    private DataProspects dataProspects;
-    private ProspectManagerCallback callback;
+    private static final String TAG = DataProspectManager.class.getSimpleName();
+    private SQLDataProspectsHelper SQLDataProspectsHelper;
 
-    public ProspectManager(ProspectManagerCallback callback, DataProspects dataProspects) {
+    public DataProspectManager(SQLDataProspectsHelper SQLDataProspectsHelper) {
 
-        this.dataProspects = dataProspects;
-        this.callback = callback;
+        this.SQLDataProspectsHelper = SQLDataProspectsHelper;
 
     }
 
-    public void save(List<ProspectModel> prospectList) {
-        dataProspects.deleteDataBase();
+    @Override
+    public void save(DataProspectManagerCallback callback1, List<ProspectModel> prospectList) {
+
+        DataProspectManagerCallback callback = callback1;
+
+        SQLDataProspectsHelper.deleteDataBase();
         Iterator dataIterator = prospectList.iterator();
 
         while(dataIterator.hasNext()){
@@ -64,17 +66,19 @@ public class ProspectManager {
                 telephone = null;
             }
             Log.i(TAG, "nombre: " + name);
-            dataProspects.saveProspect(name, surname, id, telephone);
+            SQLDataProspectsHelper.saveProspect(name, surname, id, telephone);
         }
-        dataProspects.close();
-        loadCursorData();
+        SQLDataProspectsHelper.close();
+        callback.onSaveCompleted();
     }
 
-    public void loadCursorData() {
-        Cursor cursor = dataProspects.getAllProspects();
+    @Override
+    public void loadCursorData(DataProspectManagerCallback callback) {
+
+        Cursor cursor = SQLDataProspectsHelper.getAllProspects();
         if(cursor.getCount() == 0){
             Log.i(TAG, "Cursor is empty");
-            dataProspects.close();
+            SQLDataProspectsHelper.close();
             return;
         }
         List<ProspectSqlModel> prospectList = new ArrayList<>();
@@ -87,12 +91,17 @@ public class ProspectManager {
             object.setTelephone(cursor.getLong(4));
             prospectList.add(object);
         }
-        dataProspects.close();
+        SQLDataProspectsHelper.close();
         callback.onDatabaseCreated(prospectList);
     }
 
-    public void updateProspect(int id, String name, String surname, Long identification, Long tel){
-        dataProspects.updateProspect(id, name, surname, identification, tel);
+    @Override
+    public void updateProspect(DataProspectManagerCallback callback1, int id, String name, String surname, Long identification, Long tel){
+
+        DataProspectManagerCallback callback  = callback1;
+
+        SQLDataProspectsHelper.updateProspect(id, name, surname, identification, tel);
         callback.onProspectUpdated("User updated!");
+
     }
 }

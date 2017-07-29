@@ -11,7 +11,7 @@ import android.util.Log;
  * Created by marioalejndro on 29/06/17.
  */
 
-public class DataProspects extends SQLiteOpenHelper {
+public class SQLDataProspectsHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "prospects.db";
     private static final String PROSPECT_TABLE = "PROSPECT";
@@ -21,19 +21,19 @@ public class DataProspects extends SQLiteOpenHelper {
     private static final String IDENTIFICATION = "IDENTIFICATION";
     private static final String TELEPHONE = "TELEPHONE";
 
-    private static final String TAG = DataProspects.class.getSimpleName();
-    private static DataProspects mInstance = null;
+    private static final String TAG = SQLDataProspectsHelper.class.getSimpleName();
+    private static SQLDataProspectsHelper mInstance = null;
     private Context context;
 
-    public static DataProspects getInstance(Context context) {
+    public static SQLDataProspectsHelper getInstance(Context context) {
 
         if (mInstance == null) {
-            mInstance = new DataProspects(context.getApplicationContext());
+            mInstance = new SQLDataProspectsHelper(context.getApplicationContext());
         }
         return mInstance;
     }
 
-    private DataProspects(Context context) {
+    private SQLDataProspectsHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
         this.context = context;
     }

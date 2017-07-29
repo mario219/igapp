@@ -2,16 +2,19 @@ package com.mario219.restconsumer.presentation.presenter;
 
 import android.util.Log;
 
+import com.mario219.restconsumer.prospects.DataProspect;
+import com.mario219.restconsumer.prospects.RequestProspects;
+import com.mario219.restconsumer.utils.Connectivity;
 import com.mario219.restconsumer.utils.ConnectivityManager;
+import com.mario219.restconsumer.utils.Preferences;
 import com.mario219.restconsumer.utils.PreferencesManager;
-import com.mario219.restconsumer.data.DataProspects;
+import com.mario219.restconsumer.data.SQLDataProspectsHelper;
 import com.mario219.restconsumer.models.ProspectModel;
 import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.view.contract.ListProspectsView;
-import com.mario219.restconsumer.prospects.ProspectManagerCallback;
-import com.mario219.restconsumer.prospects.RequestProspects;
-import com.mario219.restconsumer.prospects.RequestProspectsCallback;
-import com.mario219.restconsumer.prospects.ProspectManager;
+import com.mario219.restconsumer.prospects.DataProspectManagerCallback;
+import com.mario219.restconsumer.prospects.RequestProspectsUrlCallback;
+import com.mario219.restconsumer.prospects.DataProspectManager;
 
 import java.util.List;
 
@@ -19,52 +22,64 @@ import java.util.List;
  * Created by marioalejndro on 29/06/17.
  */
 
-public class ListProspectsPresenter implements RequestProspectsCallback, ProspectManagerCallback {
+public class ListProspectsPresenter implements RequestProspectsUrlCallback, DataProspectManagerCallback {
 
     private static final String TAG = ListProspectsPresenter.class.getSimpleName();
 
     private ListProspectsView view;
-    private ConnectivityManager connectivityManager;
-    private PreferencesManager preferences;
-    private RequestProspects restProspects;
-    private ProspectManager manageProspects;
+    private Connectivity connectivityManager;
+    private Preferences preferences;
+    private RequestProspects requestProspects;
+    private DataProspect dataProspectManager;
 
     public ListProspectsPresenter(
             ListProspectsView view,
-            ConnectivityManager connectivityManager,
-            DataProspects dataInstance,
-            PreferencesManager preferences) {
+            Connectivity connectivityManager,
+            Preferences preferences,
+            RequestProspects requestProspects,
+            DataProspect dataProspectManager) {
 
         this.view = view;
         this.connectivityManager = connectivityManager;
         this.preferences = preferences;
-        restProspects = new RequestProspects(this);
-        manageProspects = new ProspectManager(this, dataInstance);
+        this.requestProspects = requestProspects;
+        this.dataProspectManager = dataProspectManager;
 
     }
 
     public void loadProspectsList(String token) {
+
         if(preferences.databaseExits()){
-            Log.i(TAG, "db exists!");
-            manageProspects.loadCursorData();
+            dataProspectManager.loadCursorData(this);
         }else{
             if(connectivityManager.isOnline()){
-                restProspects.requestProspects(token);
+                requestProspects.requestProspects(this, token);
             }else{
                 view.onFailureConnection();
             }
         }
-    }
 
-    @Override
-    public void onRequestCompleted(List<ProspectModel> prospectList) {
-        manageProspects.save(prospectList);
     }
 
 
     /**
      * Callback methods
      */
+    @Override
+    public void onRequestCompleted(List<ProspectModel> prospectList) {
+        dataProspectManager.save(this, prospectList);
+    }
+
+    @Override
+    public void onRequestFail(String error) {
+        view.displayErrorMessage(error);
+    }
+
+    @Override
+    public void onSaveCompleted() {
+        dataProspectManager.loadCursorData(this);
+    }
+
     @Override
     public void onDatabaseCreated(List<ProspectSqlModel> prospectSqlList) {
         preferences.notifyDatabaseExits(true);
@@ -75,4 +90,5 @@ public class ListProspectsPresenter implements RequestProspectsCallback, Prospec
     public void onProspectUpdated(String message) {
 
     }
+
 }

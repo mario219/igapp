@@ -8,8 +8,9 @@ import java.util.List;
  * Created by marioalejndro on 29/06/17.
  */
 
-public interface RequestProspectsCallback {
+public interface RequestProspectsUrlCallback {
 
     void onRequestCompleted(List<ProspectModel> prospectList);
+    void onRequestFail(String error);
 
 }
