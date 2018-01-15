@@ -1,8 +1,8 @@
 package com.mario219.restconsumer.presentation.presenter;
 
 import com.mario219.restconsumer.presentation.view.contract.LoginView;
-import com.mario219.restconsumer.session.Rest;
-import com.mario219.restconsumer.session.RestLoginCallback;
+import com.mario219.restconsumer.network.sessionlogin.Rest;
+import com.mario219.restconsumer.network.sessionlogin.RestLoginCallback;
 import com.mario219.restconsumer.utils.Connectivity;
 import com.mario219.restconsumer.utils.Preferences;
 

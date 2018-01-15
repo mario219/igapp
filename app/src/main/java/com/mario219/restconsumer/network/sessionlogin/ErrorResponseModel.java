@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.models;
+package com.mario219.restconsumer.network.sessionlogin;
 
 /**
  * Created by marioalejndro on 29/06/17.
@@ -6,10 +6,7 @@ package com.mario219.restconsumer.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
-
-public class SessionErrorResponse  {
+public class ErrorResponseModel {
 
     @SerializedName("code")
     @Expose

@@ -5,5 +5,7 @@ package com.mario219.restconsumer.presentation.view.contract;
  */
 
 public interface EditProspectView {
-    void onUserUpdated(String message);
+
+    void onUserUpdated();
+
 }

@@ -13,14 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.prospects.DataProspect;
-import com.mario219.restconsumer.prospects.DataProspectManager;
-import com.mario219.restconsumer.prospects.RequestProspects;
-import com.mario219.restconsumer.prospects.RequestProspectsUrl;
-import com.mario219.restconsumer.utils.ConnectivityManager;
+import com.mario219.restconsumer.data.databasemodels.ProspectDB;
+import com.mario219.restconsumer.network.listprospects.DataProspectManager;
 import com.mario219.restconsumer.utils.PreferencesManager;
-import com.mario219.restconsumer.data.SQLDataProspectsHelper;
-import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.presenter.ListProspectsPresenter;
 import com.mario219.restconsumer.presentation.view.adapter.ProspectAdapter;
 import com.mario219.restconsumer.presentation.view.contract.ListProspectsView;
@@ -30,8 +25,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class ListsProspectsFragment extends Fragment implements ListProspectsView{
+public class ListsProspectsFragment extends Fragment implements ListProspectsView {
 
     /**
      * UI
@@ -45,9 +41,7 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
      * State
      */
     private ListProspectsPresenter listProspectsPresenter;
-    private ConnectivityManager connectivityManager;
     private PreferencesManager preferencesManager;
-    private RequestProspectsUrl requestProspectManager;
     private DataProspectManager dataProspectManager;
 
     public ListsProspectsFragment() {
@@ -60,23 +54,20 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
         View view = inflater.inflate(R.layout.fragment_prospects, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        connectivityManager = new ConnectivityManager(getContext());
         preferencesManager = new PreferencesManager(getContext());
-        requestProspectManager = new RequestProspectsUrl();
-        SQLDataProspectsHelper dataInstance = SQLDataProspectsHelper.getInstance(getContext());
-        dataProspectManager = new DataProspectManager(dataInstance);
+        //SQLDataProspectsHelper dataInstance = SQLDataProspectsHelper.getInstance(getContext());
+        //dataProspectManager = new DataProspectManager(dataInstance);
 
         //Load Layout
-        listProspectsPresenter = new ListProspectsPresenter(this,
-                connectivityManager, preferencesManager,
-                requestProspectManager, dataProspectManager);
-        listProspectsPresenter.loadProspectsList(new PreferencesManager(getContext()).getCurrentSession().toString());
+        listProspectsPresenter = new ListProspectsPresenter(this, preferencesManager,
+                AndroidSchedulers.mainThread(), dataProspectManager);
+        listProspectsPresenter.loadProspectsList();
 
         //Refresh Layout
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listProspectsPresenter.loadProspectsList(new PreferencesManager(getContext()).getCurrentSession().toString());
+                listProspectsPresenter.loadProspectsList();
             }
         });
 
@@ -88,6 +79,7 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        listProspectsPresenter.onStop();
     }
 
 
@@ -101,22 +93,17 @@ public class ListsProspectsFragment extends Fragment implements ListProspectsVie
     }
 
     @Override
-    public void loadRecycler(List<ProspectSqlModel> prospectList) {
+    public void loadRecycler(List<ProspectDB> prospectList) {
 
         mSwipeRefreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
-
+        /*
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         ProspectAdapter prospectAdapter = new ProspectAdapter(prospectList);
         recyclerView.setAdapter(prospectAdapter);
-
+        */
     }
 
-    @Override
-    public void displayErrorMessage(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-    }
 }

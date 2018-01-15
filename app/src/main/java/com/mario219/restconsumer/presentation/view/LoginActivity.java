@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.mario219.restconsumer.session.RestLogin;
+import com.mario219.restconsumer.network.sessionlogin.RestLogin;
 import com.mario219.restconsumer.utils.ConnectivityManager;
 import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.R;

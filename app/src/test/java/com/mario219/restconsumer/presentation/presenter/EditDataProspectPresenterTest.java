@@ -1,8 +1,7 @@
 package com.mario219.restconsumer.presentation.presenter;
 
 import com.mario219.restconsumer.presentation.view.contract.EditProspectView;
-import com.mario219.restconsumer.prospects.DataProspect;
-import com.mario219.restconsumer.prospects.DataProspectManagerCallback;
+import com.mario219.restconsumer.network.listprospects.DataProspect;
 
 import org.junit.Before;
 import org.junit.Rule;

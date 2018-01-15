@@ -1,10 +1,7 @@
-package com.mario219.restconsumer.session;
-
-import com.mario219.restconsumer.models.SessionModel;
+package com.mario219.restconsumer.network.sessionlogin;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**

@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.models;
+package com.mario219.restconsumer.network.sessionlogin;
 
 /**
  * Created by marioalejndro on 28/06/17.

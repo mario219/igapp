@@ -1,7 +1,6 @@
 package com.mario219.restconsumer.presentation.view.contract;
 
-import com.mario219.restconsumer.models.ProspectModel;
-import com.mario219.restconsumer.models.ProspectSqlModel;
+import com.mario219.restconsumer.data.databasemodels.ProspectDB;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
 public interface ListProspectsView {
 
     void onFailureConnection();
-    void loadRecycler(List<ProspectSqlModel> prospectList);
-    void displayErrorMessage(String error);
+    void loadRecycler(List<ProspectDB> prospectList);
 
 }

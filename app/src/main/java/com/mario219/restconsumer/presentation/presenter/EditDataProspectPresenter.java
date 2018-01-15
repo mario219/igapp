@@ -1,19 +1,13 @@
 package com.mario219.restconsumer.presentation.presenter;
 
-import com.mario219.restconsumer.data.SQLDataProspectsHelper;
-import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.view.contract.EditProspectView;
-import com.mario219.restconsumer.prospects.DataProspect;
-import com.mario219.restconsumer.prospects.DataProspectManager;
-import com.mario219.restconsumer.prospects.DataProspectManagerCallback;
-
-import java.util.List;
+import com.mario219.restconsumer.network.listprospects.DataProspect;
 
 /**
  * Created by marioalejndro on 30/06/17.
  */
 
-public class EditDataProspectPresenter implements DataProspectManagerCallback {
+public class EditDataProspectPresenter {
 
     private EditProspectView view;
     private DataProspect manageProspects;
@@ -26,24 +20,8 @@ public class EditDataProspectPresenter implements DataProspectManagerCallback {
     }
 
     public void updateProspect(int id, String name, String surname, Long identification, Long tel) {
-        manageProspects.updateProspect(this, id, name, surname, identification, tel);
+        manageProspects.updateProspect(id, name, surname, identification, tel);
+        view.onUserUpdated();
     }
 
-    /**
-     * Callback methods
-     */
-    @Override
-    public void onDatabaseCreated(List<ProspectSqlModel> prospectSqlList) {
-
-    }
-
-    @Override
-    public void onProspectUpdated(String message) {
-        view.onUserUpdated(message);
-    }
-
-    @Override
-    public void onSaveCompleted() {
-
-    }
 }

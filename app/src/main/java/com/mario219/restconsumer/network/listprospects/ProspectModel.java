@@ -1,13 +1,16 @@
-package com.mario219.restconsumer.models;
+package com.mario219.restconsumer.network.listprospects;
 
 /**
  * Created by marioalejndro on 29/06/17.
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProspectModel {
+
+public class ProspectModel implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -78,6 +81,9 @@ public class ProspectModel {
     @SerializedName("userId")
     @Expose
     private Object userId;
+
+    public ProspectModel() {
+    }
 
     public String getId() {
         return id;
@@ -262,5 +268,58 @@ public class ProspectModel {
     public void setUserId(Object userId) {
         this.userId = userId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(surname);
+        dest.writeString(telephone);
+        dest.writeString(schProspectIdentification);
+        dest.writeString(address);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
+        dest.writeString(zoneCode);
+        dest.writeString(neighborhoodCode);
+        dest.writeString(cityCode);
+        dest.writeString(sectionCode);
+        dest.writeString(observation);
+        dest.writeString(campaignCode);
+    }
+
+    protected ProspectModel(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        surname = in.readString();
+        telephone = in.readString();
+        schProspectIdentification = in.readString();
+        address = in.readString();
+        createdAt = in.readString();
+        updatedAt = in.readString();
+        zoneCode = in.readString();
+        neighborhoodCode = in.readString();
+        cityCode = in.readString();
+        sectionCode = in.readString();
+        observation = in.readString();
+        campaignCode = in.readString();
+    }
+
+    public static final Creator<ProspectModel> CREATOR = new Creator<ProspectModel>() {
+        @Override
+        public ProspectModel createFromParcel(Parcel in) {
+            return new ProspectModel(in);
+        }
+
+        @Override
+        public ProspectModel[] newArray(int size) {
+            return new ProspectModel[size];
+        }
+    };
+
 
 }

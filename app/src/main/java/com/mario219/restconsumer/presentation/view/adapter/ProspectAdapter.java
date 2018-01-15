@@ -2,7 +2,6 @@ package com.mario219.restconsumer.presentation.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.models.ProspectSqlModel;
+import com.mario219.restconsumer.data.databasemodels.ProspectDB;
 import com.mario219.restconsumer.presentation.view.EditProspectActivity;
 
 import java.util.List;
@@ -25,9 +24,9 @@ import butterknife.ButterKnife;
 
 public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.ProspectHolder> {
 
-    private List<ProspectSqlModel> prospectList;
+    private List<ProspectDB> prospectList;
 
-    public ProspectAdapter(List<ProspectSqlModel> prospectList) {
+    public ProspectAdapter(List<ProspectDB> prospectList) {
         this.prospectList = prospectList;
         notifyDataSetChanged();
     }
@@ -42,7 +41,7 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
 
     @Override
     public void onBindViewHolder(ProspectHolder holder, final int position) {
-        final ProspectSqlModel prospect = prospectList.get(position);
+        /*final ProspectSqlModel prospect = prospectList.get(position);
         holder.etName.setText(prospect.getName());
         holder.etSurname.setText(prospect.getSurname());
         holder.etId.setText(prospect.getIdentification().toString());
@@ -56,7 +55,7 @@ public class ProspectAdapter extends RecyclerView.Adapter<ProspectAdapter.Prospe
                 editProspectActivity.putExtra("prospect_object", prospect);
                 context.startActivity(editProspectActivity);
             }
-        });
+        });*/
     }
 
     @Override

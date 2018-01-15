@@ -1,9 +1,4 @@
-package com.mario219.restconsumer.session;
-
-import android.content.Context;
-
-import com.mario219.restconsumer.models.SessionErrorResponse;
-import com.mario219.restconsumer.models.SessionModel;
+package com.mario219.restconsumer.network.sessionlogin;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -50,10 +45,10 @@ public class RestLogin implements Rest {
                 try {
                     callback.onFinishedRequest(response.body().getAuthToken().toString());
                 }catch (Exception e){
-                    Converter<ResponseBody, SessionErrorResponse> converter =
-                            retrofit.responseBodyConverter(SessionErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponseModel> converter =
+                            retrofit.responseBodyConverter(ErrorResponseModel.class, new Annotation[0]);
                     try {
-                        SessionErrorResponse error;
+                        ErrorResponseModel error;
                         error = converter.convert(response.errorBody());
                         callback.onFinishedRequestFailure(error.getError().toString());
                     } catch (IOException exc) {

@@ -6,11 +6,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.data.SQLDataProspectsHelper;
-import com.mario219.restconsumer.models.ProspectSqlModel;
 import com.mario219.restconsumer.presentation.presenter.EditDataProspectPresenter;
 import com.mario219.restconsumer.presentation.view.contract.EditProspectView;
-import com.mario219.restconsumer.prospects.DataProspectManager;
+import com.mario219.restconsumer.network.listprospects.DataProspectManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +32,7 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
      * State
      */
     EditDataProspectPresenter editProspectPresenter;
-    private ProspectSqlModel prospect;
+    //private ProspectSqlModel prospect;
     private int position;
 
     @Override
@@ -44,9 +42,9 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
         setContentView(R.layout.activity_edit_prospect);
         ButterKnife.bind(this);
 
-
-        SQLDataProspectsHelper dataInstance = SQLDataProspectsHelper.getInstance(this);
-        DataProspectManager dataProspectManager = new DataProspectManager(dataInstance);
+        /*
+        //SQLDataProspectsHelper dataInstance = SQLDataProspectsHelper.getInstance(this);
+        //DataProspectManager dataProspectManager = new DataProspectManager(dataInstance);
         editProspectPresenter = new EditDataProspectPresenter(this, dataProspectManager);
 
         //load data prospects from listProspect
@@ -56,7 +54,7 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
         etSurname.setHint(prospect.getSurname());
         etId.setHint(prospect.getIdentification().toString());
         etTelephone.setHint(prospect.getTelephone().toString());
-
+        */
     }
 
     @Override
@@ -66,7 +64,7 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
 
     @OnClick(R.id.prospect_btn_edit)
     public void onSaveBtnClick(){
-        if(etName.getText().equals("") || etSurname.getText().equals("") ||
+        /*if(etName.getText().equals("") || etSurname.getText().equals("") ||
                 etId.getText().equals("") || etTelephone.getText().equals("")){
             Toast.makeText(this, R.string.login_empty_field, Toast.LENGTH_SHORT).show();
         }else{
@@ -75,7 +73,7 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
                     Long.parseLong(etId.getText().toString()),
                     Long.parseLong(etTelephone.getText().toString())
             );
-        }
+        }*/
     }
 
 
@@ -83,8 +81,8 @@ public class EditProspectActivity extends AppCompatActivity implements EditProsp
      * Contract Methods
      */
     @Override
-    public void onUserUpdated(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void onUserUpdated() {
+        Toast.makeText(this, "User updated", Toast.LENGTH_SHORT).show();
         finish();
     }
 

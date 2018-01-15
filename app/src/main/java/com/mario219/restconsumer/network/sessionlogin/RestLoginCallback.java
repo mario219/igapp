@@ -1,6 +1,4 @@
-package com.mario219.restconsumer.session;
-
-import com.mario219.restconsumer.models.SessionModel;
+package com.mario219.restconsumer.network.sessionlogin;
 
 /**
  * Created by marioalejndro on 28/06/17.
