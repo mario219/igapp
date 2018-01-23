@@ -1,23 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.2.10'
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        //classpath 'me.tatarka:gradle-retrolambda:3.7.0'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:3.1.1'
     }
 }
-
-ext {
-    supportLibVersion = "26.1.0"
-    archRoomVersion = "1.0.0"
-}
-
 
 allprojects {
     repositories {
@@ -29,3 +22,49 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    supportLibVersion = "26.1.0"
+    archRoomVersion = "1.0.0"
+    constraintVersion = "1.0.2"
+    butterKnifeVersion = "8.5.1"
+    retrofitVersion ="2.3.0"
+    daggerVersion = "2.11"
+
+    libs = [
+            //Lifecycle
+            lifecycle : 'android.arch.lifecycle:runtime:' + rootProject.archRoomVersion,
+            lifecycleJava8 : 'android.arch.lifecycle:common-java8:' + rootProject.archRoomVersion,
+            lifecyleCompiler : 'android.arch.lifecycle:compiler:' + rootProject.archRoomVersion,
+            liveData : 'android.arch.lifecycle:extensions:' + rootProject.archRoomVersion,
+            reactiveStreams : 'android.arch.lifecycle:reactivestreams:' + rootProject.archRoomVersion,
+            //Room
+            room : 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion,
+            roomCompiler : 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion,
+            roomRx : 'android.arch.persistence.room:rxjava2:' + rootProject.archRoomVersion,
+            //Support
+            appcompact : 'com.android.support:appcompat-v7:' + rootProject.supportLibVersion,
+            supportV4 : 'com.android.support:support-v4:' + rootProject.supportLibVersion,
+            recyclerview : 'com.android.support:recyclerview-v7:' + rootProject.supportLibVersion,
+            designSupport : 'com.android.support:design:' + rootProject.supportLibVersion,
+            cardview : 'com.android.support:cardview-v7:' + rootProject.supportLibVersion,
+            constraintLayout : 'com.android.support.constraint:constraint-layout:' + rootProject.constraintVersion,
+            //Butterknife
+            butterKnife : 'com.jakewharton:butterknife:' + rootProject.butterKnifeVersion,
+            butterknifeCompiler : 'com.jakewharton:butterknife-compiler:' + rootProject.butterKnifeVersion,
+            //Retrofit
+            retrofit : 'com.squareup.retrofit2:retrofit:' + rootProject.retrofitVersion,
+            retrofitGson : 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersion,
+            retrofitRx : 'com.squareup.retrofit2:adapter-rxjava2:' + rootProject.retrofitVersion,
+            //Rx
+            rxjava : 'io.reactivex.rxjava2:rxjava:2.1.2',
+            rxandroid : 'io.reactivex.rxjava2:rxandroid:2.0.1',
+            //Dagger2
+            dagger2 : 'com.google.dagger:dagger-android:' + rootProject.daggerVersion,
+            daggerCompiler : 'com.google.dagger:dagger-compiler:' + rootProject.daggerVersion,
+            //unitTest
+            junit : 'junit:junit:4.12',
+            mockito : 'org.mockito:mockito-core:2.8.47'
+    ]
+}
+

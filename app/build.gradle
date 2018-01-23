@@ -23,9 +23,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    //packagingOptions {
-    //    exclude 'META-INF/rxjava.properties'
-    //}
 }
 
 dependencies {
@@ -33,55 +30,51 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     //LifeCycle::ArchitectureComponents
-    compile 'android.arch.lifecycle:runtime:' + rootProject.archRoomVersion
-    compile 'android.arch.lifecycle:common-java8:' + rootProject.archRoomVersion
-    annotationProcessor 'android.arch.lifecycle:compiler:' + rootProject.archRoomVersion
+    implementation libs.lifecycle
+    implementation libs.lifecycleJava8
+    annotationProcessor libs.lifecyleCompiler
 
     //LiveData
-    compile 'android.arch.lifecycle:extensions:1.0.0'
-    //compile 'android.arch.lifecycle:reactivestreams:1.0.0'
+    implementation libs.liveData
+    implementation libs.reactiveStreams
 
     //RoomDB
-    compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion
-    annotationProcessor 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion
-    //compile 'android.arch.persistence.room:rxjava2:1.0.0'
+    implementation libs.room
+    implementation libs.roomRx
+    annotationProcessor libs.roomCompiler
     //testCompile 'android.arch.core:core-testing:1.0.0'
     //testCompile 'android.arch.persistence.room:testing:' + rootProject.archRoomVersion
 
-    //Pagging
-    //compile 'android.arch.paging:runtime:1.0.0-alpha3'
-
     //Android Support
-    compile 'com.android.support:appcompat-v7:' + rootProject.supportLibVersion
-    compile 'com.android.support:support-v4:' + rootProject.supportLibVersion
-    compile 'com.android.support:recyclerview-v7:' + rootProject.supportLibVersion
-    compile 'com.android.support:design:' + rootProject.supportLibVersion
-    compile 'com.android.support:cardview-v7:' + rootProject.supportLibVersion
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation libs.appcompact
+    implementation libs.supportV4
+    implementation libs.recyclerview
+    implementation libs.designSupport
+    implementation libs.cardview
+    implementation libs.constraintLayout
     //ButterKnife
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation libs.butterKnife
+    annotationProcessor libs.butterknifeCompiler
 
     //Retrofit, Gson, RxAdapter
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation libs.retrofit
+    implementation libs.retrofitGson
+    implementation libs.retrofitRx
 
     //Rx
-    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation libs.rxjava
+    implementation libs.rxandroid
+
     //Dagger 2
-    compile 'com.google.dagger:dagger-android:2.11'
+    implementation libs.dagger2
+    annotationProcessor libs.daggerCompiler
     //compile 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
     //annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 
     //UnitTest
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.8.47'
-
-
-
+    androidTestCompile libs.junit
+    androidTestCompile libs.mockito
 
 }
