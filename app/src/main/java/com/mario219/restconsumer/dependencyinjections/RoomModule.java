@@ -1,10 +1,13 @@
 package com.mario219.restconsumer.dependencyinjections;
 
 import android.app.Application;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.persistence.room.Room;
 import com.mario219.restconsumer.data.dao.ProspectDao;
 import com.mario219.restconsumer.data.helper.DataBaseHelper;
 import com.mario219.restconsumer.data.repositories.ProspectRepository;
+import com.mario219.restconsumer.presentation.viewmodel.CustomViewModelFactory;
+
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -21,7 +24,7 @@ public class RoomModule {
 
     public RoomModule(Application application) {
         this.dataBaseHelper = Room.databaseBuilder(
-                application.getApplicationContext(),
+                application,
                 DataBaseHelper.class,
                 "app_database.db"
         ).build();
@@ -43,6 +46,12 @@ public class RoomModule {
     @Singleton
     DataBaseHelper providesDataBase(Application application){
         return dataBaseHelper;
+    }
+
+    @Provides
+    @Singleton
+    ViewModelProvider.Factory provideViewModelFactory(ProspectRepository prospectRepository){
+        return new CustomViewModelFactory(prospectRepository);
     }
 
 

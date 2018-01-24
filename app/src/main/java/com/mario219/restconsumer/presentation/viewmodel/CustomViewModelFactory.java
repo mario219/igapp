@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.viewmodel;
+package com.mario219.restconsumer.presentation.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

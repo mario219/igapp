@@ -26,7 +26,7 @@ public class ProspectRepository {
         return prospectDao.getAllProspects();
     }
 
-    public LiveData<ProspectDB> searchProspect(Long identification){
+    public ProspectDB searchProspectWithId(Long identification){
         return prospectDao.searchProspectWithId(identification);
     }
 
@@ -34,7 +34,7 @@ public class ProspectRepository {
         prospectDao.updateProspect(prospectDB);
     }
 
-    public void insertProspect(ProspectDB prospectDB){
-        prospectDao.insertProspect(prospectDB);
+    public Long insertProspect(ProspectDB prospectDB){
+        return prospectDao.insertProspect(prospectDB);
     }
 }

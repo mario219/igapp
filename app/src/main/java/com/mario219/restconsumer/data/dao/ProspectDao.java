@@ -18,16 +18,22 @@ import java.util.List;
 @Dao
 public interface ProspectDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertProspect(ProspectDB... prospectDB);
-
     @Query("select * from prospects")
-    public LiveData<List<ProspectDB>> getAllProspects();
+    LiveData<List<ProspectDB>> getAllProspects();
 
     @Query("select * from prospects where identification like :identification")
-    public LiveData<ProspectDB> searchProspectWithId(Long identification);
+    ProspectDB searchProspectWithId(Long identification);
 
     @Update
-    public void updateProspect(ProspectDB... prospectDB);
+    void updateProspect(ProspectDB... prospectDB);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Long insertProspect(ProspectDB... prospectDB);
+
+
+
+
+
+
 
 }
