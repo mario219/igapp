@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.presentation.view;
+package com.mario219.restconsumer.presentation.view.oldviews;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

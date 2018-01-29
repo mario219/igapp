@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.presentation.view;
+package com.mario219.restconsumer.presentation.view.oldviews;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

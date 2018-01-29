@@ -2,10 +2,10 @@ package com.mario219.restconsumer.dependencyinjections;
 
 import android.app.Application;
 
-import com.mario219.restconsumer.presentation.view.EditProspectActivity;
-import com.mario219.restconsumer.presentation.view.ListsProspectsFragment;
-import com.mario219.restconsumer.presentation.view.LoginActivity;
-import com.mario219.restconsumer.presentation.view.MainActivity;
+import com.mario219.restconsumer.presentation.view.oldviews.EditProspectActivity;
+import com.mario219.restconsumer.presentation.view.oldviews.ListsProspectsFragment;
+import com.mario219.restconsumer.presentation.view.oldviews.LoginActivity;
+import com.mario219.restconsumer.presentation.view.oldviews.MainActivity;
 
 import javax.inject.Singleton;
 

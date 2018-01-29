@@ -36,6 +36,7 @@ public class LoadingProgressBar extends Dialog {
         setContentView(R.layout.view_loading_progress);
     }
 
+    // For versions lowers than Marshmallow
     private void hideDialogTitleBar() {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
             Window window = getWindow();
