@@ -2,6 +2,7 @@ package com.mario219.restconsumer.dependencyinjections;
 
 import android.app.Application;
 
+import com.mario219.restconsumer.presentation.view.login.LoginFragment;
 import com.mario219.restconsumer.presentation.view.oldviews.EditProspectActivity;
 import com.mario219.restconsumer.presentation.view.oldviews.ListsProspectsFragment;
 import com.mario219.restconsumer.presentation.view.oldviews.LoginActivity;
@@ -19,10 +20,7 @@ import dagger.Component;
 @Component(modules = {ApplicationModule.class, RoomModule.class})
 public interface ApplicationComponent {
 
-    void inject(LoginActivity loginActivity);
-    void inject(MainActivity mainActivity);
-    void inject(ListsProspectsFragment listsProspectsFragment);
-    void inject(EditProspectActivity editProspectActivity);
+    void inject(LoginFragment loginFragment);
 
     Application application();
 

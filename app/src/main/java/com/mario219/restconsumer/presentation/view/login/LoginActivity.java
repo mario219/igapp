@@ -1,12 +1,12 @@
-package com.mario219.restconsumer.presentation.view.activities;
+package com.mario219.restconsumer.presentation.view.login;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.presentation.view.fragments.LoginFragment;
+import com.mario219.restconsumer.presentation.view.BaseActivity;
 
 /**
  * Created by mario on 24/01/18.
@@ -20,11 +20,11 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        FragmentManager manager = getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
         LoginFragment fragment = (LoginFragment) manager.findFragmentByTag(LOGIN_FRAG);
 
         if(fragment == null)
             fragment = LoginFragment.newInstance();
-        addFragmentToActivity(manager, fragment, R.id.action_settings, LOGIN_FRAG);
+        addFragmentToActivity(manager, fragment, R.id.root_login_activity, LOGIN_FRAG);
     }
 }

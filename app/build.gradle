@@ -75,7 +75,7 @@ dependencies {
     //Dagger 2
     implementation libs.dagger2
     annotationProcessor libs.daggerCompiler
-    //compile 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
+    //implementation 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
     //annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
 
     //UnitTest

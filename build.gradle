@@ -25,6 +25,7 @@ task clean(type: Delete) {
 
 ext {
     supportLibVersion = "26.1.0"
+    lifecycle = "1.1.0"
     archRoomVersion = "1.0.0"
     constraintVersion = "1.0.2"
     butterKnifeVersion = "8.5.1"
@@ -34,11 +35,13 @@ ext {
 
     libs = [
             //Lifecycle
-            lifecycle : 'android.arch.lifecycle:runtime:' + rootProject.archRoomVersion,
-            lifecycleJava8 : 'android.arch.lifecycle:common-java8:' + rootProject.archRoomVersion,
-            lifecyleCompiler : 'android.arch.lifecycle:compiler:' + rootProject.archRoomVersion,
-            liveData : 'android.arch.lifecycle:extensions:' + rootProject.archRoomVersion,
-            reactiveStreams : 'android.arch.lifecycle:reactivestreams:' + rootProject.archRoomVersion,
+            lifecycle : 'android.arch.lifecycle:runtime:' + rootProject.lifecycle,
+            lifecyleCompiler : 'android.arch.lifecycle:compiler:' + rootProject.lifecycle,
+            //LiveData & ViewModel
+            liveData : 'android.arch.lifecycle:extensions:' + rootProject.lifecycle,
+            reactiveStreams : 'android.arch.lifecycle:reactivestreams:' + rootProject.lifecycle,
+            //Java 8 support
+            lifecycleJava8 : 'android.arch.lifecycle:common-java8:' + rootProject.lifecycle,
             //Room
             room : 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion,
             roomCompiler : 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion,

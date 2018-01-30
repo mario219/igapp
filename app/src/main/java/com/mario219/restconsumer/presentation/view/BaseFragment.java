@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.presentation.view.fragments;
+package com.mario219.restconsumer.presentation.view;
 
 import android.content.Context;
 import android.os.Bundle;
