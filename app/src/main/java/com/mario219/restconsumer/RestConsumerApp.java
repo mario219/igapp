@@ -6,6 +6,7 @@ import com.mario219.restconsumer.dependencyinjections.ApplicationComponent;
 import com.mario219.restconsumer.dependencyinjections.ApplicationModule;
 import com.mario219.restconsumer.dependencyinjections.DaggerApplicationComponent;
 import com.mario219.restconsumer.dependencyinjections.RoomModule;
+import com.mario219.restconsumer.utils.PreferencesManager;
 
 
 /**
@@ -15,6 +16,7 @@ import com.mario219.restconsumer.dependencyinjections.RoomModule;
 public class RestConsumerApp extends Application {
 
     private ApplicationComponent applicationComponent;
+    private static PreferencesManager preferencesManager = null;
 
     @Override
     public void onCreate() {
@@ -25,9 +27,16 @@ public class RestConsumerApp extends Application {
             .applicationModule(new ApplicationModule(this))
             .roomModule(new RoomModule(this))
             .build();
+
+        preferencesManager.getInstance(this);
 }
 
     public ApplicationComponent getApplicationComponent(){
         return applicationComponent;
     }
+
+    public static PreferencesManager getPreferencesManager(){
+        return preferencesManager;
+    }
+
 }

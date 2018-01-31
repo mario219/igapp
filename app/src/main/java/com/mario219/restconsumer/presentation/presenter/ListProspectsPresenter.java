@@ -2,7 +2,6 @@ package com.mario219.restconsumer.presentation.presenter;
 
 import com.mario219.restconsumer.network.listprospects.DataProspect;
 import com.mario219.restconsumer.network.listprospects.RequestProspectsUrl;
-import com.mario219.restconsumer.utils.Preferences;
 import com.mario219.restconsumer.presentation.view.contract.ListProspectsView;
 
 import java.net.SocketTimeoutException;

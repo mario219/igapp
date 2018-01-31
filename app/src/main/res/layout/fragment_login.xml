@@ -11,15 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/login_progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
         <EditText
-            android:id="@+id/login_et_email"
+            android:id="@+id/et_login_email"
             android:layout_width="271dp"
             android:layout_height="47dp"
             android:layout_marginTop="@dimen/top_margin"
@@ -30,7 +23,7 @@
             />
 
         <EditText
-            android:id="@+id/login_et_password"
+            android:id="@+id/et_login_password"
             android:layout_width="272dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/caption_margin"
@@ -40,7 +33,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/login_btn_login"
+            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

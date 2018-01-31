@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.mario219.restconsumer.presentation.view.components.LoadingProgressBar;
+import com.mario219.restconsumer.utils.ConnectionManager;
 
 /**
  * Created by mario on 24/01/18.
@@ -16,12 +17,12 @@ import com.mario219.restconsumer.presentation.view.components.LoadingProgressBar
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public LoadingProgressBar progressBar;
+    protected ConnectionManager connectionManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressBar = new LoadingProgressBar(this);
+        connectionManager = ConnectionManager.getInstance();
     }
 
     public static void addFragmentToActivity(android.support.v4.app.FragmentManager fragmentManager, Fragment fragment, int frameId, String tag) {
@@ -40,17 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             window.setStatusBarColor(color);
         }
     }
-
-    public void showLoading() {
-        progressBar.show();
-        progressBar.setCancelable(false);
-    }
-
-    public void hideLoading() {
-        if (progressBar.isShowing())
-            progressBar.dismiss();
-    }
-
 
     @Override
     protected void onStart() {

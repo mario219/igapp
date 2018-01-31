@@ -10,13 +10,21 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by marioalejndro on 28/06/17.
  */
 
-public class PreferencesManager implements Preferences {
+public class PreferencesManager {
+
+    private static PreferencesManager INSTANCE;
     private static final String TAG = PreferencesManager.class.getSimpleName();
     private static String PREF_NAME = "CurrentSessionPref";
     private Context context;
 
-    public PreferencesManager(Context context){
-        this.context = context;
+    private PreferencesManager(Context context1){
+        this.context = context1;
+    }
+
+    public static synchronized PreferencesManager getInstance(Context context1) {
+        if(INSTANCE == null)
+            INSTANCE = new PreferencesManager(context1);
+        return INSTANCE;
     }
 
     private SharedPreferences getPrefs (){
@@ -26,7 +34,6 @@ public class PreferencesManager implements Preferences {
     /**
      *  Session Preferences
      */
-    @Override
     public String getCurrentSession() {
         SharedPreferences prefs = getPrefs();
         String token = prefs.getString("token", "");
@@ -37,7 +44,6 @@ public class PreferencesManager implements Preferences {
         }
     }
 
-    @Override
     public void SetCurrentSession(String token) {
         SharedPreferences.Editor editor = getPrefs().edit();
         editor.putString("token", token);
@@ -48,7 +54,6 @@ public class PreferencesManager implements Preferences {
     /**
      *  Database Preferences
      */
-    @Override
     public Boolean databaseExits() {
         SharedPreferences prefs = getPrefs();
         Boolean flag = prefs.getBoolean("flag", false);
@@ -59,7 +64,6 @@ public class PreferencesManager implements Preferences {
         }
     }
 
-    @Override
     public void notifyDatabaseExits(Boolean flag) {
         SharedPreferences.Editor editor = getPrefs().edit();
         editor.putBoolean("flag", flag);

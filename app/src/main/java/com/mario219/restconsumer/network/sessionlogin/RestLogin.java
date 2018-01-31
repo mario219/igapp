@@ -16,18 +16,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by marioalejndro on 28/06/17.
  */
 
-public class RestLogin implements Rest {
+public class RestLogin{
 
     private static final String url = "http://directotesting.igapps.co/";
     private static final String TAG = RestLogin.class.getSimpleName();
-    private RestLoginCallback callback;
 
-    public RestLogin() {  }
+    private static RestLogin INSTANCE;
+    private RestLoginListener listener;
 
-    @Override
-    public void restLogin(RestLoginCallback callback1, String email, String password) {
 
-        this.callback = callback1;
+    private RestLogin() {
+    }
+
+    public static synchronized RestLogin getInstance() {
+        if(INSTANCE == null)
+            INSTANCE = new RestLogin();
+        return INSTANCE;
+    }
+
+    public void setCallback(RestLoginListener listener1){
+        this.listener = listener1;
+    }
+
+    public void restLogin(String email, String password) {
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -43,16 +54,16 @@ public class RestLogin implements Rest {
             public void onResponse(Call<SessionModel> call, Response<SessionModel> response) {
 
                 try {
-                    callback.onFinishedRequest(response.body().getAuthToken().toString());
+                    listener.onLoginSuccess(response.body().getAuthToken().toString());
                 }catch (Exception e){
                     Converter<ResponseBody, ErrorResponseModel> converter =
                             retrofit.responseBodyConverter(ErrorResponseModel.class, new Annotation[0]);
                     try {
                         ErrorResponseModel error;
                         error = converter.convert(response.errorBody());
-                        callback.onFinishedRequestFailure(error.getError().toString());
+                        listener.onLoginFailure(error.getError().toString());
                     } catch (IOException exc) {
-                        callback.onFinishedRequestFailure(exc.toString());
+                        listener.onLoginFailure(exc.toString());
                     }
                 }
 
@@ -65,6 +76,11 @@ public class RestLogin implements Rest {
 
         });
 
+    }
+
+    public interface RestLoginListener {
+        public void onLoginSuccess(String token);
+        public void onLoginFailure(String error);
     }
 
 }

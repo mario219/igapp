@@ -7,12 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mario219.restconsumer.presentation.view.components.LoadingProgressBar;
+
 import butterknife.Unbinder;
 
 
 public class BaseFragment extends Fragment {
 
     protected Unbinder unbinder;
+    public LoadingProgressBar progressBar;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -24,7 +28,7 @@ public class BaseFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         Context context = getContext();
         if(context != null){
-
+            progressBar = new LoadingProgressBar(getContext());
         }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -35,6 +39,17 @@ public class BaseFragment extends Fragment {
         if(unbinder != null) {
             unbinder.unbind();
         }
+    }
+
+
+    public void showLoading() {
+        progressBar.show();
+        progressBar.setCancelable(false);
+    }
+
+    public void hideLoading() {
+        if (progressBar.isShowing())
+            progressBar.dismiss();
     }
 
 }

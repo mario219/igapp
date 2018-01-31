@@ -19,4 +19,5 @@
     <string name="main_nav_title_prospects">Prospects</string>
     <string name="main_nav_title_logs">Logs</string>
     <string name="no_internet_connection">You don´t have an internet connection</string>
+    <string name="blank_files">Blank files!</string>
 </resources>

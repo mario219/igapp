@@ -12,7 +12,6 @@ import com.mario219.restconsumer.network.sessionlogin.RestLogin;
 import com.mario219.restconsumer.utils.ConnectivityManager;
 import com.mario219.restconsumer.utils.PreferencesManager;
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.presentation.presenter.LoginPresenter;
 import com.mario219.restconsumer.presentation.view.contract.LoginView;
 
 
