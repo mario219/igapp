@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mario219.restconsumer.presentation.view.components.LoadingProgressBar;
+import com.mario219.restconsumer.presentation.view.uicomponents.LoadingProgressBar;
 
 import butterknife.Unbinder;
 

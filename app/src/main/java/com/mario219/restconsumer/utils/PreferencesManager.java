@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import javax.inject.Inject;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -12,19 +14,13 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class PreferencesManager {
 
-    private static PreferencesManager INSTANCE;
     private static final String TAG = PreferencesManager.class.getSimpleName();
     private static String PREF_NAME = "CurrentSessionPref";
-    private Context context;
+    private final Context context;
 
-    private PreferencesManager(Context context1){
-        this.context = context1;
-    }
-
-    public static synchronized PreferencesManager getInstance(Context context1) {
-        if(INSTANCE == null)
-            INSTANCE = new PreferencesManager(context1);
-        return INSTANCE;
+    @Inject
+    public PreferencesManager(Context context){
+        this.context = context;
     }
 
     private SharedPreferences getPrefs (){

@@ -28,7 +28,7 @@ public interface ProspectDao {
     void updateProspect(ProspectDB... prospectDB);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Long insertProspect(ProspectDB... prospectDB);
+    void insertProspect(ProspectDB... prospectDB);
 
 
 

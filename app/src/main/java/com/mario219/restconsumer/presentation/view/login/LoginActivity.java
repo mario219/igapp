@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import com.mario219.restconsumer.R;
 import com.mario219.restconsumer.RestConsumerApp;
 import com.mario219.restconsumer.presentation.view.BaseActivity;
-import com.mario219.restconsumer.presentation.view.oldviews.MainActivity;
 
 /**
  * Created by mario on 24/01/18.

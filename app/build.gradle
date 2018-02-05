@@ -67,6 +67,8 @@ dependencies {
     implementation libs.retrofit
     implementation libs.retrofitGson
     implementation libs.retrofitRx
+    implementation libs.loginInterceptor
+    implementation libs.timber
 
     //Rx
     implementation libs.rxjava

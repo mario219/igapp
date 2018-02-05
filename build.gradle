@@ -57,9 +57,11 @@ ext {
             butterKnife : 'com.jakewharton:butterknife:' + rootProject.butterKnifeVersion,
             butterknifeCompiler : 'com.jakewharton:butterknife-compiler:' + rootProject.butterKnifeVersion,
             //Retrofit
+            loginInterceptor : 'com.squareup.okhttp3:logging-interceptor:3.2.0',
             retrofit : 'com.squareup.retrofit2:retrofit:' + rootProject.retrofitVersion,
             retrofitGson : 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersion,
             retrofitRx : 'com.squareup.retrofit2:adapter-rxjava2:' + rootProject.retrofitVersion,
+            timber : 'com.jakewharton.timber:timber:4.6.0',
             //Rx
             rxjava : 'io.reactivex.rxjava2:rxjava:2.1.2',
             rxandroid : 'io.reactivex.rxjava2:rxandroid:2.0.1',

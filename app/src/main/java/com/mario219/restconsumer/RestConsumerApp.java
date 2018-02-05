@@ -1,11 +1,10 @@
 package com.mario219.restconsumer;
 
+import android.app.Activity;
 import android.app.Application;
 
-import com.mario219.restconsumer.dependencyinjections.ApplicationComponent;
-import com.mario219.restconsumer.dependencyinjections.ApplicationModule;
-import com.mario219.restconsumer.dependencyinjections.DaggerApplicationComponent;
-import com.mario219.restconsumer.dependencyinjections.RoomModule;
+import com.mario219.restconsumer.dependencyinjections.RestConsumerApplicationComponent;
+import com.mario219.restconsumer.dependencyinjections.applicationmodules.ContextModule;
 import com.mario219.restconsumer.utils.PreferencesManager;
 
 
@@ -15,28 +14,30 @@ import com.mario219.restconsumer.utils.PreferencesManager;
 
 public class RestConsumerApp extends Application {
 
-    private ApplicationComponent applicationComponent;
-    private static PreferencesManager preferencesManager = null;
+    private RestConsumerApplicationComponent restConsumerApplicationComponent;
+
+    public static RestConsumerApp get(Activity activity){
+        return (RestConsumerApp) activity.getApplication();
+    }
+
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        applicationComponent = DaggerApplicationComponent
-            .builder()
-            .applicationModule(new ApplicationModule(this))
-            .roomModule(new RoomModule(this))
-            .build();
+        restConsumerApplicationComponent = DaggerRestConsumerApplicationComponent.builder()
+                .contexModule(new ContextModule(this))
+                .build();
 
-        preferencesManager.getInstance(this);
-}
 
-    public ApplicationComponent getApplicationComponent(){
-        return applicationComponent;
+    }
+
+    public RestConsumerApplicationComponent getRestConsumerApplicationComponent(){
+        return restConsumerApplicationComponent;
     }
 
     public static PreferencesManager getPreferencesManager(){
-        return preferencesManager;
+        return null;
     }
 
 }

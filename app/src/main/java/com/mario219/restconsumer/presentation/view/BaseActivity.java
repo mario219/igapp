@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.mario219.restconsumer.presentation.view.components.LoadingProgressBar;
 import com.mario219.restconsumer.utils.ConnectionManager;
 
 /**

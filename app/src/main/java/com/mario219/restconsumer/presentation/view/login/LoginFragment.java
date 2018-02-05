@@ -15,11 +15,9 @@ import android.widget.Toast;
 import com.mario219.restconsumer.R;
 import com.mario219.restconsumer.RestConsumerApp;
 import com.mario219.restconsumer.models.User;
-import com.mario219.restconsumer.network.sessionlogin.RestLogin;
 import com.mario219.restconsumer.presentation.view.BaseFragment;
 import com.mario219.restconsumer.presentation.viewmodel.UserViewModel;
 import com.mario219.restconsumer.utils.ConnectionManager;
-import com.mario219.restconsumer.utils.PreferencesManager;
 
 import javax.inject.Inject;
 
@@ -27,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginFragment extends BaseFragment implements RestLogin.RestLoginListener{
+public class LoginFragment extends BaseFragment {
 
     /**
      * Injections
@@ -77,9 +75,9 @@ public class LoginFragment extends BaseFragment implements RestLogin.RestLoginLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((RestConsumerApp) getActivity().getApplication())
-                .getApplicationComponent()
-                .inject(this);
+        //((RestConsumerApp) getActivity().getApplication())
+        //        .getRestConsumerApplicationComponent()
+        //        .inject(this);
     }
 
     @Override
@@ -121,8 +119,8 @@ public class LoginFragment extends BaseFragment implements RestLogin.RestLoginLi
         }else{
             if(ConnectionManager.ONLINE) {
                 showLoading();
-                RestLogin.getInstance().setCallback(this);
-                RestLogin.getInstance().restLogin(editTextLogin.getText().toString(), editTextPassword.getText().toString());
+                //RestLogin.getInstance().setCallback(this);
+                //RestLogin.getInstance().restLogin(editTextLogin.getText().toString(), editTextPassword.getText().toString());
             }else{
                 Toast.makeText(getActivity(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             }
@@ -132,14 +130,14 @@ public class LoginFragment extends BaseFragment implements RestLogin.RestLoginLi
     /**
      * Callbacks
      */
-    @Override
+    //@Override
     public void onLoginSuccess(String token) {
         hideLoading();
         RestConsumerApp.getPreferencesManager().SetCurrentSession(token);
         listener.startMainActivity();
     }
 
-    @Override
+    //@Override
     public void onLoginFailure(String error) {
         hideLoading();
         Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
