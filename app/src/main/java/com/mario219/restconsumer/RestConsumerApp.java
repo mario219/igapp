@@ -3,9 +3,14 @@ package com.mario219.restconsumer;
 import android.app.Activity;
 import android.app.Application;
 
-import com.mario219.restconsumer.dependencyinjections.RestConsumerApplicationComponent;
-import com.mario219.restconsumer.dependencyinjections.applicationmodules.ContextModule;
-import com.mario219.restconsumer.utils.PreferencesManager;
+import com.mario219.restconsumer.applicationmodules.DaggerRestConsumerApplicationComponent;
+import com.mario219.restconsumer.applicationmodules.RestConsumerApplicationComponent;
+import com.mario219.restconsumer.applicationmodules.ContextModule;
+import com.mario219.restconsumer.applicationmodules.RoomModule;
+import com.mario219.restconsumer.data.helper.DataBaseHelper;
+import com.mario219.restconsumer.network.IgappService;
+
+import timber.log.Timber;
 
 
 /**
@@ -14,30 +19,33 @@ import com.mario219.restconsumer.utils.PreferencesManager;
 
 public class RestConsumerApp extends Application {
 
-    private RestConsumerApplicationComponent restConsumerApplicationComponent;
+    private RestConsumerApplicationComponent applicationComponent;
 
     public static RestConsumerApp get(Activity activity){
         return (RestConsumerApp) activity.getApplication();
     }
 
+    private IgappService igappService;
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        restConsumerApplicationComponent = DaggerRestConsumerApplicationComponent.builder()
-                .contexModule(new ContextModule(this))
+        Timber.plant(new Timber.DebugTree());
+
+        applicationComponent = DaggerRestConsumerApplicationComponent.builder()
+                .contextModule(new ContextModule(this))
                 .build();
 
+        igappService = applicationComponent.getIgappService();
+        dataBaseHelper = applicationComponent.getDatabaseHelper();
 
     }
 
-    public RestConsumerApplicationComponent getRestConsumerApplicationComponent(){
-        return restConsumerApplicationComponent;
+    public RestConsumerApplicationComponent getApplicationComponent(){
+        return applicationComponent;
     }
 
-    public static PreferencesManager getPreferencesManager(){
-        return null;
-    }
 
 }

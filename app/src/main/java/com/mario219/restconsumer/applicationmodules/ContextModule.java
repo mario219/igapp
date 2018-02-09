@@ -1,9 +1,6 @@
-package com.mario219.restconsumer.dependencyinjections.applicationmodules;
+package com.mario219.restconsumer.applicationmodules;
 
 import android.content.Context;
-
-import com.mario219.restconsumer.dependencyinjections.applicationmodules.ApplicationContext;
-import com.mario219.restconsumer.dependencyinjections.applicationmodules.RestConsumerScope;
 
 import dagger.Module;
 import dagger.Provides;

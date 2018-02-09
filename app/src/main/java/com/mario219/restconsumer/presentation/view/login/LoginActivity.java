@@ -24,7 +24,7 @@ public class LoginActivity extends BaseActivity implements LoginFragment.LoginFr
 
         connectionManager.setOwner(this, this);
 
-        if (RestConsumerApp.getPreferencesManager().getCurrentSession() != null) {
+        if (true/*RestConsumerApp.getPreferencesManager().getCurrentSession() != null*/) {
             startMainActivity();
             this.finish();
         } else {
@@ -39,8 +39,9 @@ public class LoginActivity extends BaseActivity implements LoginFragment.LoginFr
 
     @Override
     public void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+       // Intent intent = new Intent(this, MainActivity.class);
 
         this.finish();
     }
+
 }

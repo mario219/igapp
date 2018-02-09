@@ -1,6 +1,5 @@
-package com.mario219.restconsumer.dependencyinjections.applicationmodules;
+package com.mario219.restconsumer.applicationmodules;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

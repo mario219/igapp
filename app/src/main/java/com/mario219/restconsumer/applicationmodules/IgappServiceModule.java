@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.dependencyinjections.applicationmodules;
+package com.mario219.restconsumer.applicationmodules;
 
 import com.mario219.restconsumer.network.IgappService;
 

@@ -76,7 +76,7 @@ public class LoginFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //((RestConsumerApp) getActivity().getApplication())
-        //        .getRestConsumerApplicationComponent()
+        //        .getApplicationComponent()
         //        .inject(this);
     }
 
@@ -133,7 +133,7 @@ public class LoginFragment extends BaseFragment {
     //@Override
     public void onLoginSuccess(String token) {
         hideLoading();
-        RestConsumerApp.getPreferencesManager().SetCurrentSession(token);
+        //RestConsumerApp.getPreferencesManager().SetCurrentSession(token);
         listener.startMainActivity();
     }
 

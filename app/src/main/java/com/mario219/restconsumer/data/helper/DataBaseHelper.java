@@ -12,23 +12,6 @@ import com.mario219.restconsumer.data.databasemodels.ProspectDB;
 @Database(entities = {ProspectDB.class}, version = 1, exportSchema = false)
 public abstract class DataBaseHelper extends RoomDatabase {
 
-    //private static DataBaseHelper INSTANCE;
-
     public abstract ProspectDao prospectDao();
-
-    /*public static DataBaseHelper getInstance(Context context){
-        if(INSTANCE == null){
-            INSTANCE =
-                    Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            DataBaseHelper.class, "appDatabase")
-                    .build();
-        }
-        return INSTANCE;
-    }
-
-    public static void destroyInstance(){
-        INSTANCE = null;
-    }*/
 
 }
