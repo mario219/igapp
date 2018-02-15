@@ -8,10 +8,10 @@ import dagger.Component;
  * Created by mario219 on 14/02/18.
  */
 
-@Component(modules = LoginActivityModule.class, dependencies = RestConsumerApplicationComponent.class)
+@Component(modules = LoginFramentModule.class, dependencies = RestConsumerApplicationComponent.class)
 @LoginActivityScope
-public interface LoginActivityComponent {
+public interface LoginFragmentComponent {
 
-    void injectLoginActivity(LoginActivity loginActivity);
+    void injectLoginActivity(LoginFragment loginActivity);
 
 }

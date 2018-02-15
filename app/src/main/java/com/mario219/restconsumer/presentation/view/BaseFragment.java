@@ -41,7 +41,6 @@ public class BaseFragment extends Fragment {
         }
     }
 
-
     public void showLoading() {
         progressBar.show();
         progressBar.setCancelable(false);

@@ -2,13 +2,21 @@ package com.mario219.restconsumer.presentation.view.login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
+import com.mario219.restconsumer.RestConsumerApp;
+import com.mario219.restconsumer.network.IgappService;
 import com.mario219.restconsumer.presentation.view.BaseFragment;
+import com.mario219.restconsumer.utils.ConnectionManager;
+import com.mario219.restconsumer.utils.PreferencesManager;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,15 +24,21 @@ import butterknife.OnClick;
 
 public class LoginFragment extends BaseFragment {
     /**
-     * Data
+     * Components
      */
-    LoginFragmentListener listener;
+    @Inject PreferencesManager preferences;
+    @Inject IgappService igappService;
 
     /**
      * UI
      */
     @BindView(R.id.et_login_email) EditText editTextLogin;
     @BindView(R.id.et_login_password) EditText editTextPassword;
+
+    /**
+     * Attr
+     */
+    LoginFragmentListener listener;
 
     /**
      * Constructor
@@ -39,6 +53,16 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LoginFragmentComponent loginFragmentComponent = DaggerLoginFragmentComponent.builder()
+                .loginFramentModule(new LoginFramentModule(this))
+                .restConsumerApplicationComponent(RestConsumerApp.get(getActivity()).getApplicationComponent())
+                .build();
+
+        loginFragmentComponent.injectLoginActivity(this);
+
+        if (preferences.getCurrentSession() != null)
+            listener.startMainActivity();
 
     }
 
@@ -85,9 +109,8 @@ public class LoginFragment extends BaseFragment {
 //                Toast.makeText(getActivity(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
 //            }
 //        }
+        Toast.makeText(getActivity(), "Connection: " + ConnectionManager.ONLINE, Toast.LENGTH_SHORT).show();
     }
-
-
 
     public interface LoginFragmentListener{
         void startMainActivity();

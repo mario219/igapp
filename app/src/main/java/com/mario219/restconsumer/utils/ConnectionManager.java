@@ -8,8 +8,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by mario on 31/01/18.
@@ -40,7 +42,7 @@ public class ConnectionManager implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     void registerReceiver(){
-        context.registerReceiver(connectionBroadCast, new IntentFilter());
+        context.registerReceiver(connectionBroadCast, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -48,17 +50,14 @@ public class ConnectionManager implements LifecycleObserver {
         context.unregisterReceiver(connectionBroadCast);
     }
 
-    private static class ConnectionBroadCast extends BroadcastReceiver{
+    public static class ConnectionBroadCast extends BroadcastReceiver{
 
         @Override
         public void onReceive(Context context, Intent intent) {
             android.net.ConnectivityManager cm = (android.net.ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo nInfo = cm.getActiveNetworkInfo();
-            if(nInfo != null && nInfo.isConnectedOrConnecting()){
-                ONLINE = true;
-            }else{
-                ONLINE = false;
-            }
+            ONLINE = nInfo != null &&
+                    nInfo.isConnectedOrConnecting();
         }
     }
 

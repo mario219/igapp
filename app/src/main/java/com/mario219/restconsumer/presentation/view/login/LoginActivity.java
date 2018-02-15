@@ -22,40 +22,22 @@ import javax.inject.Inject;
 public class LoginActivity extends BaseActivity implements LoginFragment.LoginFragmentListener{
     private static final String LOGIN_FRAG = "LOGIN_FRAG";
 
-    @Inject
-    PreferencesManager preferences;
-
-    @Inject
-    IgappService igappService;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         connectionManager.setOwner(this, this);
 
-        LoginActivityComponent loginActivityComponent = DaggerLoginActivityComponent.builder()
-                .loginActivityModule(new LoginActivityModule(this))
-                .restConsumerApplicationComponent(RestConsumerApp.get(this).getApplicationComponent())
-                .build();
-
-        loginActivityComponent.injectLoginActivity(this);
-
-        init();
+        FragmentManager manager = getSupportFragmentManager();
+        LoginFragment fragment = (LoginFragment) manager.findFragmentByTag(LOGIN_FRAG);
+        if (fragment == null)
+            fragment = LoginFragment.newInstance();
+        addFragmentToActivity(manager, fragment, R.id.root_login_activity, LOGIN_FRAG);
 
     }
 
     private void init() {
-        if (preferences.getCurrentSession() != null) {
-            startMainActivity();
-        } else {
-            FragmentManager manager = getSupportFragmentManager();
-            LoginFragment fragment = (LoginFragment) manager.findFragmentByTag(LOGIN_FRAG);
-            if (fragment == null)
-                fragment = LoginFragment.newInstance();
-            addFragmentToActivity(manager, fragment, R.id.root_login_activity, LOGIN_FRAG);
 
-        }
     }
 
     @Override
