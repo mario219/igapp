@@ -22,9 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         connectionManager = ConnectionManager.getInstance();
-
-
-
     }
 
     public static void addFragmentToActivity(android.support.v4.app.FragmentManager fragmentManager,
@@ -63,11 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
 }
