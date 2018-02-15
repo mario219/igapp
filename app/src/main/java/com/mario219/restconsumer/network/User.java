@@ -1,4 +1,4 @@
-package com.mario219.restconsumer.models;
+package com.mario219.restconsumer.network;
 
 import com.google.gson.annotations.SerializedName;
 

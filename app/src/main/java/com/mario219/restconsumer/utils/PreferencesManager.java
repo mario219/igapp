@@ -15,24 +15,18 @@ import static android.content.Context.MODE_PRIVATE;
 public class PreferencesManager {
 
     private static final String TAG = PreferencesManager.class.getSimpleName();
-    private static String PREF_NAME = "CurrentSessionPref";
-    private final Context context;
+    private SharedPreferences preferences;
 
     @Inject
-    public PreferencesManager(Context context){
-        this.context = context;
-    }
-
-    private SharedPreferences getPrefs (){
-        return context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+    public PreferencesManager(SharedPreferences preferences) {
+        this.preferences = preferences;
     }
 
     /**
      *  Session Preferences
      */
     public String getCurrentSession() {
-        SharedPreferences prefs = getPrefs();
-        String token = prefs.getString("token", "");
+        String token = preferences.getString("token", "");
         if (!token.equals("")) {
             return token;
         }else{
@@ -41,18 +35,14 @@ public class PreferencesManager {
     }
 
     public void SetCurrentSession(String token) {
-        SharedPreferences.Editor editor = getPrefs().edit();
-        editor.putString("token", token);
-        editor.commit();
-        Log.i(TAG, "session updated");
+        preferences.edit().putString("token", token);
     }
 
     /**
      *  Database Preferences
      */
     public Boolean databaseExits() {
-        SharedPreferences prefs = getPrefs();
-        Boolean flag = prefs.getBoolean("flag", false);
+        Boolean flag = preferences.getBoolean("flag", false);
         if (flag == true) {
             return true;
         }else{
@@ -61,10 +51,7 @@ public class PreferencesManager {
     }
 
     public void notifyDatabaseExits(Boolean flag) {
-        SharedPreferences.Editor editor = getPrefs().edit();
-        editor.putBoolean("flag", flag);
-        editor.commit();
-        Log.i(TAG, "Saved database preference");
+        preferences.edit().putBoolean("flag", flag);
     }
 
 }

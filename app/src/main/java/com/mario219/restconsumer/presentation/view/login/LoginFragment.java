@@ -13,8 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mario219.restconsumer.R;
-import com.mario219.restconsumer.RestConsumerApp;
-import com.mario219.restconsumer.models.User;
+import com.mario219.restconsumer.network.User;
 import com.mario219.restconsumer.presentation.view.BaseFragment;
 import com.mario219.restconsumer.presentation.viewmodel.UserViewModel;
 import com.mario219.restconsumer.utils.ConnectionManager;

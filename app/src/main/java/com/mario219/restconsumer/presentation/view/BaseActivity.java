@@ -22,9 +22,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         connectionManager = ConnectionManager.getInstance();
+
+
+
     }
 
-    public static void addFragmentToActivity(android.support.v4.app.FragmentManager fragmentManager, Fragment fragment, int frameId, String tag) {
+    public static void addFragmentToActivity(android.support.v4.app.FragmentManager fragmentManager,
+                                             Fragment fragment, int frameId, String tag) {
         android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(frameId, fragment, tag);
         transaction.commit();

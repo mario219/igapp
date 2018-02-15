@@ -2,13 +2,14 @@ package com.mario219.restconsumer;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import com.mario219.restconsumer.applicationmodules.DaggerRestConsumerApplicationComponent;
 import com.mario219.restconsumer.applicationmodules.RestConsumerApplicationComponent;
 import com.mario219.restconsumer.applicationmodules.ContextModule;
-import com.mario219.restconsumer.applicationmodules.RoomModule;
 import com.mario219.restconsumer.data.helper.DataBaseHelper;
 import com.mario219.restconsumer.network.IgappService;
+import com.mario219.restconsumer.utils.PreferencesManager;
 
 import timber.log.Timber;
 
@@ -27,6 +28,7 @@ public class RestConsumerApp extends Application {
 
     private IgappService igappService;
     private DataBaseHelper dataBaseHelper;
+    private PreferencesManager preferences;
 
     @Override
     public void onCreate() {
@@ -40,6 +42,7 @@ public class RestConsumerApp extends Application {
 
         igappService = applicationComponent.getIgappService();
         dataBaseHelper = applicationComponent.getDatabaseHelper();
+        preferences = applicationComponent.getPreferences();
 
     }
 

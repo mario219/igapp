@@ -2,7 +2,7 @@ package com.mario219.restconsumer.presentation.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import com.mario219.restconsumer.models.User;
+import com.mario219.restconsumer.network.User;
 
 /**
  * Created by mario on 30/01/18.

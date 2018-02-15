@@ -1,7 +1,5 @@
 package com.mario219.restconsumer.network;
 
-import com.mario219.restconsumer.models.User;
-
 import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.Call;
