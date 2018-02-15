@@ -42,6 +42,11 @@ public class LoginActivity extends BaseActivity implements LoginFragment.LoginFr
 
         loginActivityComponent.injectLoginActivity(this);
 
+        init();
+
+    }
+
+    private void init() {
         if (preferences.getCurrentSession() != null) {
             //startMainActivity();
             //this.finish();
